@@ -1,0 +1,70 @@
+#!/bin/sh
+#
+# Terminal business card v1.0
+# Write a nice business card on the terminal.
+#
+# Credit: https://github.com/michaeltd/dots and https://github.com/bnb/bitandbang
+#
+#          ╭───────────────────────────────────────────────────────────────────────────╮
+#          │                                                                           │
+#          │                        Cyriina Grimm [Grimm-Child]                        │
+#          |                  ----- GrimmStar Graphics & Design -----                  |
+#          │                                                                           │
+#          │   The creative works of a little MonSt[a]R. I mix creepy with cute, and   │
+#          │                     have an affinity for dead things.                     │
+#          │                                                                           │
+#          │                  Contact:  Grimmstar.Graphics@gmail.com                   │
+#          │                                                                           │
+#          │                      ---------- Follow Me ----------                      │
+#          │                 Web:  https://grimmstar.online                            │
+#          │          DeviantArt:  https://deviantart.com/Grimm-Child                  │
+#          │            Facebook:  https://facebook.com/Grimmstar.Graphics             │
+#          │           Instagram:  https://instagram.com/@bubblegumscum                │
+#          │            Society6:  https://society6.com/grimm-child                    │
+#          │              Github:  https://github.com/Grimm-Child                      │
+#          │             Codepen:  https://codepen.io/Cyriina                          │
+#          │                                                                           │
+#          │                          🦇   🦇   🦇   🦇   🦇                        │
+#          │                                                                           │
+#          ╰───────────────────────────────────────────────────────────────────────────╯
+#
+# Font attributes, colors, bg_colors
+
+readonly reset="$(tput sgr0)" bold="$(tput bold)" dim="$(tput dim)" \
+    blink="$(tput blink)" underline="$(tput smul)" end_underline="$(tput rmul)" \
+    reverse="$(tput rev)" hidden="$(tput invis)" \
+    black="$(tput setaf 0)" red="$(tput setaf 1)" green="$(tput setaf 2)" \
+    yellow="$(tput setaf 3)" blue="$(tput setaf 4)" magenta="$(tput setaf 198)" \
+    cyan="$(tput setaf 6)" white="$(tput setaf 7)" default="$(tput setaf 9)" \
+    bg_black="$(tput setab 0)" bg_red="$(tput setab 1)" bg_green="$(tput setab 2)" \
+    bg_yellow="$(tput setab 3)" bg_blue="$(tput setab 4)" bg_magenta="$(tput setab 5)" \
+    bg_cyan="$(tput setab 6)" bg_white="$(tput setab 7)" bg_default="$(tput setab 9)" \
+    purple="$(tput setaf 201)" bg_purple="$(tput setab 93)" lilac="$(tput setaf 129)"
+
+cat <<EOF
+
+    ${magenta}╭───────────────────────────────────────────────────────────────────────────╮${reset}
+    ${magenta}│                                                                           │${reset}
+    ${magenta}│${reset}                        ${bold}${lilac}Cyriina Grimm [${reset}${white}Grimm-Child${reset}${bold}${lilac}]${reset}                        ${magenta}│${reset}
+    ${magenta}│${reset}                  ${underline}${purple}----- GrimmStar Graphics & Design -----${end_underline}${reset}                  ${magenta}│${reset}
+    ${magenta}│                                                                           │${reset}
+    ${magenta}│${reset}   ${white}The creative works of a little MonSt[a]R. I mix creepy with cute, and${reset}   ${magenta}│${reset}
+    ${magenta}│${reset}                     ${white}have an affinity for dead things.${reset}                     ${magenta}│${reset}
+    ${magenta}│                                                                           │${reset}
+    ${magenta}│${reset}                  ${bold}${lilac}Contact:${reset}  ${white}Grimmstar.Graphics@gmail.com${reset}                   ${magenta}│${reset}
+    ${magenta}│                                                                           │${reset}
+    ${magenta}│${reset}                      ${bold}${lilac}---------- Follow Me ----------${reset}                      ${magenta}│${reset}
+    ${magenta}│${reset}                 ${bold}${lilac}Web:${reset}  ${dim}${white}https://${reset}${purple}grimmstar${reset}${dim}${white}.online${reset}                            ${magenta}│${reset}
+    ${magenta}│${reset}          ${bold}${lilac}DeviantArt:${reset}  ${dim}${white}https://deviantart.com/${reset}${purple}Grimm-Child${reset}                  ${magenta}│${reset}
+    ${magenta}│${reset}            ${bold}${lilac}Facebook:${reset}  ${dim}${white}https://facebook.com/${reset}${purple}Grimmstar.Graphics${reset}             ${magenta}│${reset}
+    ${magenta}│${reset}           ${bold}${lilac}Instagram:${reset}  ${dim}${white}https://instagram.com/${reset}${purple}@bubblegumscum${reset}                ${magenta}│${reset}
+    ${magenta}│${reset}            ${bold}${lilac}Society6:${reset}  ${dim}${white}https://society6.com/${reset}${purple}grimm-child${reset}                    ${magenta}│${reset}
+    ${magenta}│${reset}              ${bold}${lilac}Github:${reset}  ${dim}${white}https://github.com/${reset}${purple}Grimm-Child${reset}                      ${magenta}│${reset}
+    ${magenta}│${reset}             ${bold}${lilac}Codepen:${reset}  ${dim}${white}https://codepen.io/${reset}${purple}Cyriina${reset}                          ${magenta}│${reset}
+    ${magenta}│                                                                           │${reset}
+    ${magenta}│                         ${blink}🦇    🦇    🦇    🦇    🦇${reset}                        ${magenta}│${reset}
+    ${magenta}│                                                                           │${reset}
+    ${magenta}╰───────────────────────────────────────────────────────────────────────────╯${reset}
+
+
+EOF

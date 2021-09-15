@@ -1,0 +1,139 @@
+#!/bin/bash
+#---------------------------------------------------------------------------------------------
+#
+#  ██████╗ ██████╗ ██╗███╗   ███╗███╗   ███╗███████╗████████╗ █████╗ ██████╗
+# ██╔════╝ ██╔══██╗██║████╗ ████║████╗ ████║██╔════╝╚══██╔══╝██╔══██╗██╔══██╗
+# ██║  ███╗██████╔╝██║██╔████╔██║██╔████╔██║███████╗   ██║   ███████║██████╔╝
+# ██║   ██║██╔══██╗██║██║╚██╔╝██║██║╚██╔╝██║╚════██║   ██║   ██╔══██║██╔══██╗
+# ╚██████╔╝██║  ██║██║██║ ╚═╝ ██║██║ ╚═╝ ██║███████║   ██║   ██║  ██║██║  ██║
+#  ╚═════╝ ╚═╝  ╚═╝╚═╝╚═╝     ╚═╝╚═╝     ╚═╝╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝
+#
+#
+#---------------------------------------------------------------------------------------------
+#
+# Git configuration.
+#   The .gitconfig file is used to store a per-user configuration as fallback values for the
+#   .git/config file. The order of priority for configuration levels is:
+#   local, global, system.
+#
+# Source:
+#   [Grimmstar's .dotfiles](https://github.com/Grimmstar/.dotfiles)
+#
+# Authors:
+#   Cyriina Grimm <xxgrimmchildxx@gmail.com>
+#
+#---------------------------------------------------------------------------------------------
+
+# Global Config
+[user]
+    name = "Cyriina Grimm"
+    email = "xxgrimmchildxx@gmail.com"
+    signingkey = 867EEFEF4A729D04
+
+#---------------------------------------------------------------------------------------------
+
+[branch "master"]
+    remote = origin
+    merge = refs/heads/master
+
+#---------------------------------------------------------------------------------------------
+
+[color]
+    branch = always
+    diff = always
+    grep = always
+    interactive = always
+    pager = true
+    showbranch = auto
+    status = auto
+    ui = always
+
+[color "interactive"]
+    error = red bold
+
+[color "branch"]
+    current = yellow reverse
+    local = yellow
+    remote = green
+
+[color "diff"]
+    meta = yellow
+    frag = magenta
+    old = red
+    new = green
+    whitespace = white reverse
+
+[color "status"]
+    added = yellow
+    changed = green
+    untracked = cyan
+    branch = magenta
+
+#---------------------------------------------------------------------------------------------
+
+[core]
+    pager = less -FRSX
+    whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
+    excludesfile = ~/.gitignore
+	attributesfile = ~/.gitattributes
+
+[commit]
+	# https://help.github.com/articles/signing-commits-using-gpg/
+	gpgsign = true
+
+[diff]
+    tool = vimdiff
+    # Detect copies as well as renames.
+	renames = copies
+
+[difftool]
+    prompt = false
+
+[help]
+	# Automatically correct and execute mistyped commands.
+	autocorrect = 1
+
+[merge]
+	# Include summaries of merged commits in newly created merge commit messages
+	log = true
+
+[push]
+    # https://git-scm.com/docs/git-config#git-config-pushdefault
+	default = simple
+	# Make `git push` push relevant annotated tags when pushing branches out.
+	followTags = true
+
+#---------------------------------------------------------------------------------------------
+
+[alias]
+    # log
+    l   = log --topo-order --pretty=format:'%C(yellow)%h %C(cyan)%cn %C(blue)%cr%C(reset) %s'
+    ls  = log --topo-order --stat --pretty=format:'%C(bold)%C(yellow)Commit:%C(reset) %C(yellow)%H%C(red)%d%n%C(bold)%C(yellow)Author:%C(reset) %C(cyan)%an <%ae>%n%C(bold)%C(yellow)Date:%C(reset)   %C(blue)%ai (%ar)%C(reset)%n%+B'
+    ld  = log --topo-order --stat --patch --full-diff --pretty=format:'%C(bold)%C(yellow)Commit:%C(reset) %C(yellow)%H%C(red)%d%n%C(bold)%C(yellow)Author:%C(reset) %C(cyan)%an <%ae>%n%C(bold)%C(yellow)Date:%C(reset)   %C(blue)%ai (%ar)%C(reset)%n%+B'
+    lg  = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    lga = log --topo-order --all --graph --pretty=format:'%C(yellow)%h %C(cyan)%cn%C(reset) %s %C(red)%d%C(reset)%n'
+    lm  = log --topo-order --pretty=format:'%s'
+    lh  = shortlog --summary --numbered
+    llf = fsck --lost-found
+
+    lg1 = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+    lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+
+[url "git@github.com:"]
+    insteadOf = "gh:"
+	pushInsteadOf = "github:"
+	pushInsteadOf = "git://github.com/"
+
+[url "git://github.com/"]
+	insteadOf = "github:"
+
+[url "git@gist.github.com:"]
+	insteadOf = "gst:"
+	pushInsteadOf = "gist:"
+	pushInsteadOf = "git://gist.github.com/"
+
+[url "git://gist.github.com/"]
+	insteadOf = "gist:"
+
+[init]
+	defaultBranch = main

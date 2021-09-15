@@ -1,0 +1,43 @@
+#!/bin/bash
+#---------------------------------------------------------------------------------------------
+#
+#  ██████╗ ██████╗ ██╗███╗   ███╗███╗   ███╗███████╗████████╗ █████╗ ██████╗
+# ██╔════╝ ██╔══██╗██║████╗ ████║████╗ ████║██╔════╝╚══██╔══╝██╔══██╗██╔══██╗
+# ██║  ███╗██████╔╝██║██╔████╔██║██╔████╔██║███████╗   ██║   ███████║██████╔╝
+# ██║   ██║██╔══██╗██║██║╚██╔╝██║██║╚██╔╝██║╚════██║   ██║   ██╔══██║██╔══██╗
+# ╚██████╔╝██║  ██║██║██║ ╚═╝ ██║██║ ╚═╝ ██║███████║   ██║   ██║  ██║██║  ██║
+#  ╚═════╝ ╚═╝  ╚═╝╚═╝╚═╝     ╚═╝╚═╝     ╚═╝╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝
+#
+#
+#---------------------------------------------------------------------------------------------
+#
+# Title
+#    Description
+#
+# Source:
+#   [Grimmstar's .dotfiles](https://github.com/Grimmstar/.dotfiles)
+#
+# Authors:
+#   Cyriina Grimm <xxgrimmchildxx@gmail.com>
+#
+#---------------------------------------------------------------------------------------------
+
+umask 022
+
+
+#
+######## SSH Agent ########
+#
+
+if [ -z "$SSH_AUTH_SOCK" ]; then
+   # Check for a currently running instance of the agent
+   RUNNING_AGENT="`ps -ax | grep 'ssh-agent -s' | grep -v grep | wc -l | tr -d '[:space:]'`"
+   if [ "$RUNNING_AGENT" = "0" ]; then
+        # Launch a new instance of the agent
+        ssh-agent -s &> .ssh/ssh-agent
+   fi
+   eval `cat .ssh/ssh-agent`
+fi
+
+# Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
+[ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2- | tr ' ' '\n')" scp sftp ssh;
