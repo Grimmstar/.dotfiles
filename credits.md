@@ -28,6 +28,7 @@
     + Cătălin’s dotfiles - *[Github](https://github.com/alrra/dotfiles)*
     + Gianni's dotfiles - *[Github](https://github.com/gf3/dotfiles/tree/v1.0.0)*
     + Tilde - *[Github](https://github.com/janmoesen/tilde)*
+    + ~/.dotfiles - *[Vincent](https://dev.to/vibioh/dotfiles-5695)*
 
 * ## Ubuntu
     + Ubuntu Server Setup - *[Jason Heecs](https://github.com/jasonheecs/ubuntu-server-setup)*

@@ -11,27 +11,27 @@
 #
 #---------------------------------------------------------------------------------------------
 #
-# Aliases
-#    Description
+#   Aliases
+#       Bash aliases allow you to set a memorable shortcut command for a longer command.
 #
-# Source:
-#   [Grimmstar's .dotfiles](https://github.com/Grimmstar/.dotfiles)
+#   Source:
+#       [Cyriina's .dotfiles](https://github.com/Grimmstar/.dotfiles)
 #
-# Authors:
-#   Cyriina Grimm <xxgrimmchildxx@gmail.com>
+#   Authors:
+#       Cyriina Grimm <xxgrimmchildxx@gmail.com>
 #
 #---------------------------------------------------------------------------------------------
 
-# Shortcuts
+#   Shortcuts
 alias reload="source ~/.bash_profile"
 alias _="sudo"
 
-# List declared aliases, functions, paths
+#   List declared aliases, functions, paths
 alias aliases="alias | sed 's/=.*//'"
 alias functions="declare -f | grep '^[a-z].* ()' | sed 's/{$//'"
 alias paths='echo -e ${PATH//:/\\n}'
 
-# Directory listing/traversal
+#   Directory listing/traversal
 LS_COLORS=$(is-supported "ls --color" --color -G)
 LS_TIMESTYLEISO=$(is-supported "ls --time-style=long-iso" --time-style=long-iso)
 LS_GROUPDIRSFIRST=$(is-supported "ls --group-directories-first" --group-directories-first)
@@ -48,21 +48,21 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
-alias -- -="cd -"                  # Go to previous dir with -
-alias cd.='cd $(readlink -f .)'    # Go to real dir (i.e. if current dir is linked)
+alias -- -="cd -"               # Go to previous dir with -
+alias cd.='cd $(readlink -f .)' # Go to real dir (i.e. if current dir is linked)
 
-# NPM
+#   NPM
 alias ni="npm install"
 alias nu="npm uninstall"
 alias nup="npm update"
 alias nri="rm -r node_modules && npm install"
 alias ncd="npm-check -su"
 
-# Network
+#   Network
 alias ip="curl -s ipinfo.io | jq -r '.ip'"
 alias ipl="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
 
-# Enable color support of ls and also add handy aliases
+#   Enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
@@ -74,20 +74,20 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-# Some more ls aliases
+#   Some more ls aliases
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-# Add an "alert" alias for long running commands.  Use like so:
+#   Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 alias python='python3.8'
 alias pip='python3.8 -m pip'
 
-# Print each PATH entry on a separate line
+#   Print each PATH entry on a separate line
 alias path='echo -e ${PATH//:/\\n}'
 
 alias update="sudo apt-get update \
-            && sudo apt-get upgrade -y
+            && sudo apt-get upgrade -y"

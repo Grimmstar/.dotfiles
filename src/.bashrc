@@ -11,14 +11,14 @@
 #
 #---------------------------------------------------------------------------------------------
 #
-# .bashrc
-#    Description
+#	.bashrc
+#		The ~/.bashrc file determines the behavior of interactive shells.
 #
-# Source:
-#   [Grimmstar's .dotfiles](https://github.com/Grimmstar/.dotfiles)
+#	Source:
+#		[Cyriina's .dotfiles](https://github.com/Grimmstar/.dotfiles)
 #
-# Authors:
-#   Cyriina Grimm <xxgrimmchildxx@gmail.com>
+#	Authors:
+#		Cyriina Grimm <xxgrimmchildxx@gmail.com>
 #
 #---------------------------------------------------------------------------------------------
 
@@ -26,8 +26,8 @@
 
 # If not running interactively, don't do anything
 case $- in
-    *i*) ;;
-      *) return;;
+*i*) ;;
+*) return ;;
 esac
 
 # Limit number of lines and entries in the history. HISTFILESIZE controls the
@@ -59,7 +59,7 @@ shopt -s checkwinsize
 
 # Determine git branch.
 parse_git_branch() {
-    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+    git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
 
 # Set a non-distracting prompt.
@@ -67,11 +67,11 @@ PS1='\[[01;32m\]\u@\h\[[00m\]:\[[01;34m\]\w\[[00m\] \[[01;33m\]$(parse_git_
 
 # If it's an xterm compatible terminal, set the title to user@host: dir.
 case "${TERM}" in
-xterm*|rxvt*)
+xterm* | rxvt*)
     PS1="\[\e]0;\u@\h: \w\a\]${PS1}"
     ;;
-*)
-    ;;
+*) ;;
+
 esac
 
 # set variable identifying the chroot you work in (used in the prompt below)
@@ -81,7 +81,7 @@ fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
+xterm-color | *-256color) color_prompt=yes ;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
@@ -91,12 +91,12 @@ force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
+        # We have color support; assume it's compliant with Ecma-48
+        # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+        # a case would tend to support setf rather than setaf.)
+        color_prompt=yes
     else
-	color_prompt=
+        color_prompt=
     fi
 fi
 
@@ -139,11 +139,11 @@ fi
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
-xterm*|rxvt*)
+xterm* | rxvt*)
     PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
     ;;
-*)
-    ;;
+*) ;;
+
 esac
 
 # enable color support of ls and also add handy aliases
@@ -159,7 +159,7 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # colored GCC warnings and errors
-#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
 alias ll='ls -alF'
@@ -183,11 +183,11 @@ fi
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
 if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
+    if [ -f /usr/share/bash-completion/bash_completion ]; then
+        . /usr/share/bash-completion/bash_completion
+    elif [ -f /etc/bash_completion ]; then
+        . /etc/bash_completion
+    fi
 fi
 
 # Set up Pyenv
@@ -199,32 +199,32 @@ eval "$(pyenv virtualenv-init -)"
 
 # Set up NVM
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
 
 cdnvm() {
-    cd "$@";
+    cd "$@"
     nvm_path=$(nvm_find_up .nvmrc | tr -d '\n')
 
     # If there are no .nvmrc file, use the default nvm version
     if [[ ! $nvm_path = *[^[:space:]]* ]]; then
 
-        declare default_version;
-        default_version=$(nvm version default);
+        declare default_version
+        default_version=$(nvm version default)
 
         # If there is no default version, set it to `node`
         # This will use the latest version on your machine
         if [[ $default_version == "N/A" ]]; then
-            nvm alias default node;
-            default_version=$(nvm version default);
+            nvm alias default node
+            default_version=$(nvm version default)
         fi
 
         # If the current version is not the default version, set it to use the default version
         if [[ $(nvm current) != "$default_version" ]]; then
-            nvm use default;
+            nvm use default
         fi
 
-        elif [[ -s $nvm_path/.nvmrc && -r $nvm_path/.nvmrc ]]; then
+    elif [[ -s $nvm_path/.nvmrc && -r $nvm_path/.nvmrc ]]; then
         declare nvm_version
         nvm_version=$(<"$nvm_path"/.nvmrc)
 
@@ -238,9 +238,9 @@ cdnvm() {
         # If it is not already installed, install it
         # `nvm install` will implicitly use the newly-installed version
         if [[ "$locally_resolved_nvm_version" == "N/A" ]]; then
-            nvm install "$nvm_version";
+            nvm install "$nvm_version"
         elif [[ $(nvm current) != "$locally_resolved_nvm_version" ]]; then
-            nvm use "$nvm_version";
+            nvm use "$nvm_version"
         fi
     fi
 }
@@ -250,7 +250,6 @@ if [ -f '/home/cyriina/google-cloud-sdk/path.bash.inc' ]; then . '/home/cyriina/
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/home/cyriina/google-cloud-sdk/completion.bash.inc' ]; then . '/home/cyriina/google-cloud-sdk/completion.bash.inc'; fi
-
 
 # ----------------------------------
 # Colors
@@ -271,5 +270,9 @@ LIGHTBLUE='\033[1;34m'
 LIGHTPURPLE='\033[1;35m'
 LIGHTCYAN='\033[1;36m'
 WHITE='\033[1;37m'
+
+if [ -f ~/.colors ]; then
+    . ~/.colors
+fi
 
 export PS1="💀 \[$(tput bold)\]\[\033[38;5;98m\]\u\[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]\[\033[38;5;199m\]{\[$(tput sgr0)\]\[\033[38;5;250m\]\w\[$(tput sgr0)\]\[\033[38;5;199m\]}\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]\[\033[38;5;39m\]>\[$(tput sgr0)\]\[\033[38;5;50m\]>\[$(tput sgr0)\]\[\033[38;5;48m\]>\[$(tput sgr0)\] "

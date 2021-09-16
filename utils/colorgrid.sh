@@ -1,16 +1,14 @@
 #!/usr/bin/env bash
-function colorgrid ()
-{
+function colorgrid() {
     iter=16
-    while [ $iter -lt 52 ]
-    do
-        second=$[$iter+36]
-        third=$[$second+36]
-        four=$[$third+36]
-        five=$[$four+36]
-        six=$[$five+36]
-        seven=$[$six+36]
-        if [ $seven -gt 250 ];then seven=$[$seven-251]; fi
+    while [ $iter -lt 52 ]; do
+        second=$(($iter + 36))
+        third=$(($second + 36))
+        four=$(($third + 36))
+        five=$(($four + 36))
+        six=$(($five + 36))
+        seven=$(($six + 36))
+        if [ $seven -gt 250 ]; then seven=$(($seven - 251)); fi
 
         echo -en "\033[38;5;$(echo $iter)m█ "
         printf "%03d" $iter
@@ -27,7 +25,7 @@ function colorgrid ()
         echo -en "   \033[38;5;$(echo $seven)m█ "
         printf "%03d" $seven
 
-        iter=$[$iter+1]
+        iter=$(($iter + 1))
         printf '\r\n'
     done
 }

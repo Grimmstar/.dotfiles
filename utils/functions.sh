@@ -10,39 +10,38 @@
 #
 #---------------------------------------------------------------------------------------------
 #
-# functions.sh
-#    Functions for a fresh Ubuntu setup. Used with './fresh_install.sh'
+#	functions.sh
+#		Functions for a fresh Ubuntu setup. Used with './fresh_install.sh'
 #
-# Source:
-#   [Cyriina's .dotfiles](https://github.com/Grimmstar/.dotfiles)
+#	Source:
+#   	[Cyriina's .dotfiles](https://github.com/Grimmstar/.dotfiles)
 #
-# Authors:
-#   Cyriina Grimm <xxgrimmchildxx@gmail.com>
+#	Authors:
+#   	Cyriina Grimm <xxgrimmchildxx@gmail.com>
 #
 #---------------------------------------------------------------------------------------------
 
-# Sources
+#	Sources
 
 source $(dirname $0)/utils/color_codes.sh
 source $(dirname $0)/utils/logging_utils.sh
 
-# Variables
+#	Variables
 
 DOTFILES="~/.dotfiles"
-DOTFILES_SOURCE="${DOTFILES}/src"
-DOTFILES_UTILS="${DOTFILES}/utils"
-DOTFILES_LISTS="${DOTFILES_UTILS}/lists"
-FONTS_DIR="${DOTFILES}/bin/.local/fonts"
+DOTFILES_SOURCE="$(dirname $0)/src"
+DOTFILES_UTILS="$(dirname $0)/utils"
+DOTFILES_LISTS="${DOTFILES_UTILS}/lists/"
+FONTS_DIR="$(dirname $0)/bin/.local/fonts"
 BACKUP_DIR="$HOME/.dotfiles-backup/$(date "+%Y%m%d%H%M.%S")"
-
 
 dest="${HOME}/${1}"
 old=".OLD"
 
-# Functions
+#	Functions
 
 function show_header() {
-cat << "HEADER"
+	cat <<"HEADER"
 
   ██████╗ ██████╗ ██╗███╗   ███╗███╗   ███╗███████╗████████╗ █████╗ ██████╗
  ██╔════╝ ██╔══██╗██║████╗ ████║████╗ ████║██╔════╝╚══██╔══╝██╔══██╗██╔══██╗
@@ -74,18 +73,17 @@ function add_ppas() {
 }
 
 function update_system() {
-    sudo apt-get update && sudo apt-get upgrade -y
-    sudo apt-get dist-upgrade -f
-    sudo apt autoremove -y
+	sudo apt-get update && sudo apt-get upgrade -y
+	sudo apt-get dist-upgrade -f
+	sudo apt autoremove -y
 }
 
 function install_packages() {
 	##	Looks for a list of default packages to install
 	if [ -f "${DOTFILES_LISTS}/packages.txt" ]; then
 		c_success "Found Packages list. Installing..."
-		for i in `cat ${DOTFILES_LISTS}/packages.txt`
-		do
-			if ! dpkg-query -W -f='${Status} ${Version}\n' ${i} | grep "^install ok" > /dev/null ; then
+		for i in $(cat ${DOTFILES_LISTS}/packages.txt); do
+			if ! dpkg-query -W -f='${Status} ${Version}\n' ${i} | grep "^install ok" >/dev/null; then
 				c_install "Installing package ${i} "
 				sudo apt-get install -y ${i}
 			else
@@ -101,9 +99,8 @@ function install_dev() {
 	##	Looks for a list of development packages to install
 	if [ -f "${DOTFILES_LISTS}/dev_packages.txt" ]; then
 		c_success "Found dev list. Installing..."
-		for i in `cat ${DOTFILES_LISTS}/dev_packages.txt`
-		do
-			if ! dpkg-query -W -f='${Status} ${Version}\n' ${i} | grep "^install ok" > /dev/null ; then
+		for i in $(cat ${DOTFILES_LISTS}/dev_packages.txt); do
+			if ! dpkg-query -W -f='${Status} ${Version}\n' ${i} | grep "^install ok" >/dev/null; then
 				c_install "Installing package ${i} "
 				sudo apt-get install -y ${i}
 			else
@@ -119,7 +116,7 @@ function windows() {
 	#	Install Winbind and it's support lib to ping WINS hosts
 	sudo apt install -y winbind libnss-winbind
 	#	Need to edit the /etc/nsswitch.conf file to enable if not already done ...
-	if ! grep -qc 'wins' /etc/nsswitch.conf ; then
+	if ! grep -qc 'wins' /etc/nsswitch.conf; then
 		sudo sed -i '/hosts:/ s/$/ wins/' /etc/nsswitch.conf
 	fi
 }
@@ -166,22 +163,22 @@ function seek_confirmation() {
 	c_info "$@"
 	while true; do
 		read -p " [y/n] " confirmation
-    case $confirmation in
-		[Yy]* ) return 0 ;;
-		[Nn]* ) return 1 ;;
-		* ) input "Please answer yes or no." ;;
-    esac
+		case $confirmation in
+		[Yy]*) return 0 ;;
+		[Nn]*) return 1 ;;
+		*) input "Please answer yes or no." ;;
+		esac
 	done
 }
 
 function create_ssh_key() {
 	##	Checks for existing keys, creates them if there aren't any. Copies key to clipboard to be pasted into Github browser
 	if ! [ -f "${HOME}/.ssh/id_rsa.pub" ]; then
-    	ssh-keygen -t rsa
+		ssh-keygen -t rsa
 	fi
 	c_info "Copying public key to clipboard..."
 	if [ -f "${HOME}/.ssh/id_rsa.pub" ]; then
-		pbcopy < "${HOME}/.ssh/id_rsa.pub"
+		pbcopy <"${HOME}/.ssh/id_rsa.pub"
 	fi
 }
 
@@ -189,14 +186,14 @@ function test_ssh_key() {
 	## Connects key to Github and tests to see if it works
 	ready=false
 	while [ "$ready" != true ]; do
-    if seek_confirmation "Ready to paste SSH key to Github?"; then
-		ready=true
-		open https://github.com/account/ssh
-    fi
+		if seek_confirmation "Ready to paste SSH key to Github?"; then
+			ready=true
+			open https://github.com/account/ssh
+		fi
 	done
 	ready=false
 	while [ "$ready" != true ]; do
-    if seek_confirmation "Ready to test the key?"; then ready=true; fi
+		if seek_confirmation "Ready to test the key?"; then ready=true; fi
 	done
 	c_info "Confirming the SSH key works..."
 	ready=false
@@ -205,15 +202,15 @@ function test_ssh_key() {
 		# SSH returns a status of '1' when the command works and a status
 		# of '255' when it doesn't. So, we check for a status of less then 2
 		if [ $? -lt 2 ]; then
-		ready=true
-		c_success "Congrats. You can now SSH to Github"
-	else
-		if seek_confirmation "$?: Key didn't work. Test again?"; then
-        continue
+			ready=true
+			c_success "Congrats. You can now SSH to Github"
 		else
-        c_error "Can't continue without Github working. Skipping."
+			if seek_confirmation "$?: Key didn't work. Test again?"; then
+				continue
+			else
+				c_error "Can't continue without Github working. Skipping."
+			fi
 		fi
-    fi
 	done
 }
 
@@ -228,15 +225,15 @@ function install_python() {
 		cp ${DOTFILES_UTILS}/python/default_packages.txt ~/.pyenv/default-packages
 	fi
 
-	if ! grep -qc 'pyenv init' ~/.bashrc ; then
+	if ! grep -qc 'pyenv init' ~/.bashrc; then
 		echo "Adding pyenv to .bashrc"
-		echo >> ~/.bashrc
-		echo "# Set up Pyenv" >> ~/.bashrc
-		echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
-		echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
-		echo 'eval "$(pyenv init --path)"' >> ~/.bashrc
-		echo 'eval "$(pyenv init -)"' >> ~/.bashrc
-		echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc
+		echo >>~/.bashrc
+		echo "# Set up Pyenv" >>~/.bashrc
+		echo 'export PYENV_ROOT="$HOME/.pyenv"' >>~/.bashrc
+		echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >>~/.bashrc
+		echo 'eval "$(pyenv init --path)"' >>~/.bashrc
+		echo 'eval "$(pyenv init -)"' >>~/.bashrc
+		echo 'eval "$(pyenv virtualenv-init -)"' >>~/.bashrc
 	fi
 	##	Run the above locally to use in this shell
 	export PYENV_ROOT="$HOME/.pyenv"
@@ -257,17 +254,17 @@ function install_python() {
 
 function install_node() {
 	##	Installs NVM to allow for multiple NodeJS versions to be installed
-	echo >> ~/.bashrc
-	echo "# Set up NVM" >> ~/.bashrc
+	echo >>~/.bashrc
+	echo "# Set up NVM" >>~/.bashrc
 	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
 
 	export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                 # This loads nvm
 	[[ -r $NVM_DIR/bash_completion ]] && \. $NVM_DIR/bash_completion # This loads nvm bash_completion
 
 	##	Check for a default packages list to install with every project
 	if [ -f ${DOTFILES_UTILS}/nvm/default_packages.txt ]; then
-	cp ${DOTFILES_UTILS}/nvm/default_packages.txt ~/.nvm/default-packages
+		cp ${DOTFILES_UTILS}/nvm/default_packages.txt ~/.nvm/default-packages
 	fi
 
 	nvm install --lts
@@ -278,10 +275,10 @@ function install_node() {
 function install_postgres() {
 	##	Installs PostGreSQL, creates a user, and sets up backups
 	sudo apt-get install -y postgresql
-	cd /home;\
+	cd /home
 	sudo -u postgres initdb -E UTF8 --no-locale -D '/var/lib/postgres/data'
 	sudo systemctl start postgresql.service
-	cd /home;\
+	cd /home
 	sudo -u postgres createuser --interactive
 	mkdir -p ${HOME}/.backups
 	pip install --user pgcli
@@ -293,7 +290,7 @@ function install_gcloud() {
 	##	Installs the Google Cloud SDK and symlinks the config file
 	curl https://sdk.cloud.google.com | bash
 	test -L ${HOME}/.config/gcloud || rm -rf ${HOME}/.config/gcloud
-	ln -vsfn ${DOTFILES_UTILS}/gcloud/config.txt   ${HOME}/.config/gcloud
+	ln -vsfn ${DOTFILES_UTILS}/gcloud/config.txt ${HOME}/.config/gcloud
 }
 
 function install_docker() {
@@ -348,7 +345,7 @@ function system_mods() {
 		sudo dnf install google-roboto-fonts
 
 		fc-cache -fv "${FONTS_DIR}"
-		cd - > /dev/null
+		cd - >/dev/null
 		mkdir -p ${FONTS_DIR}/powerline/
 		cd ${FONTS_DIR}/powerline/
 		rm -rf fonts

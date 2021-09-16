@@ -11,8 +11,8 @@
 #
 #---------------------------------------------------------------------------------------------
 #
-# Title
-#    Description
+# .colors
+#    Stores colors for LS
 #
 # Source:
 #   [Grimmstar's .dotfiles](https://github.com/Grimmstar/.dotfiles)
@@ -32,7 +32,7 @@
 LS_COLORS=""
 
 LS_COLORS+="no=0;39:"   # Global default
-LS_COLORS+="di=0;163:"   # Directory
+LS_COLORS+="di=0;163:"  # Directory
 LS_COLORS+="ex=0;32:"   # Executable file
 LS_COLORS+="fi=0;39:"   # File
 LS_COLORS+="ec=:"       # Non-filename text
