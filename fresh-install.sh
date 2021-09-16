@@ -450,23 +450,23 @@ case "$dotfiles_answer" in
 y | Y | yes | Yes)
 	c_success "Please tell me we're almost done..."
 	link_dotfiles .aliases
-	link_dotfiles .bash_profi
-	link_dotfiles .bash_promp
+	link_dotfiles .bash_profile
+	link_dotfiles .bash_prompt
 	link_dotfiles .bashrc
 	link_dotfiles .colors
 	link_dotfiles .curlrc
 	link_dotfiles .dircolors
-	link_dotfiles .editorconf
+	link_dotfiles .editorconfig
 	link_dotfiles .env
 	link_dotfiles .exports
 	link_dotfiles .gitconfig
 	link_dotfiles .gitignore
 	link_dotfiles .npmrc
-	link_dotfiles .nvm
+	link_dotfiles .nvmrc
 	link_dotfiles .path
 	link_dotfiles .profile
-	link_dotfiles .ssh
-	link_dotfiles .tmux.confi
+	link_dotfiles .sshrc
+	link_dotfiles .tmux.config
 	# link_dotfiles .prompt
 	link_dotfiles .wgetrc
 	link_dotfiles colors.bash

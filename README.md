@@ -12,7 +12,8 @@ This is a very, very, very much work-in-progress thing. I've Frankenstein'd a bu
 
 </div>
 
-## Contents
+## ☠️ Contents
+<div style="padding: 15px; border: 2px solid transparent; margin-bottom: 20px; border-radius: 6px; color: #8319b8; background-color: #e3c6f1; border-color: #8319b8; width: 40%;">
 
 - [Enable WSL](#enable-wsl)
 - (Optional) [Windows Terminal](#windows-terminal)
@@ -23,8 +24,9 @@ This is a very, very, very much work-in-progress thing. I've Frankenstein'd a bu
 - [Xfce4 and xRDP](#xfce4-and-xrdp)
 - [Fonts](#fonts)
 - [Helpful Links](#helpful-links)
+- [To-Do](#to-do)
 - [License](#license)
-
+</div>
 I use Ubuntu | WSL2 running on Windows 10. Some of these scripts and options may not work out of the box for you. Sorry.
 
 <details>
@@ -97,7 +99,7 @@ With VSCode's remote server feature, it has native support for WSL. You can run 
 At this point, you should have WSL2 working and an Ubunto distro installed. If your Ubuntu user is set up and your terminal is ready to go, follow the rest of the guide below.
 </details>
 
-## Ubuntu Scripts
+## 🦴 Ubuntu Scripts
 
 Items installed in the following scripts include:
 
@@ -105,11 +107,12 @@ Items installed in the following scripts include:
 
 **`fresh-install.sh`**
 
-[`Git`](#) ✰ [`Github Cli`](#) ✰ [`Python 2 & 3`](#) ✰ [`SSH`](#) ✰ [`NVM`](#) ✰ [`NodeJS`](#) ✰ [`Yarn`](#) ✰ [`PostgreSQL`](#) ✰ [`Docker`](#) ✰ [`Heroku`](#) ✰ [`AWS Cli`](#) ✰ [`NGINX`](#) ✰ [`Powerline Fonts`](#) ✰ [`Figlet`](#) ✰ [`LOLcat`](#)
+[`Git`](https://git-scm.com/) ✰ [`Github Cli`](https://cli.github.com/) ✰ [`Python 2 & 3`](https://www.python.org/downloads/) ✰ [`SSH`](https://www.openssh.com/) ✰ [`NVM`](https://github.com/nvm-sh/nvm) ✰ [`NodeJS`](https://nodejs.org/en/) ✰ [`Yarn`](https://yarnpkg.com/) ✰ [`PostgreSQL`](https://www.postgresql.org/) ✰ [`Docker`](https://www.docker.com/) ✰ [`Heroku`](https://www.heroku.com) ✰ [`AWS Cli`](https://aws.amazon.com/cli/) ✰ [`NGINX`](https://www.nginx.com/) ✰ [`Powerline Fonts`](https://github.com/powerline/fonts) ✰ [`Figlet`](http://www.figlet.org/) ✰ [`LOLcat`](https://github.com/busyloop/lolcat)
 
 </div>
 
-### Auto Install
+### 🤖 Auto Install
+![lolcat](assets/lolcat.png?raw=true "lolcat")
 
 <details>
 <summary>If you like things easy, but possibly broken, start here</summary>
@@ -125,7 +128,7 @@ Items installed in the following scripts include:
     ```
 </details>
 
-### Manual Installation
+### 🗡️ Manual Installation
 
 <details>
 <summary>Don't want to break things? Here is a safe place to start</summary>
@@ -133,7 +136,7 @@ Items installed in the following scripts include:
 - Open `fresh-install.sh` and copy/paste the commands you wish to use from top to bottom. I mean, that's the simplest way I can put it.
 </details>
 
-### Xfce4 and xRDP
+### 🧚 Xfce4 and xRDP
 
 <details>
 <summary>To access a Linux GUI from Windows with Xfce4 and xRDP, follow the instructions below</summary>
@@ -172,14 +175,17 @@ At this point, you should be able to open an RDP session from Windows 10.
 <br>
 
 _____
-## Extras
+## 🔮 Extras
 
 #### Terminal card
-`~/.dotfiles/extras/cyriinagrimm`
+<div align="center">
+
+**`~/.dotfiles/extras/cyriinagrimm`**
+
 ![Cy Card](assets/terminal_card.png?raw=true "Cy Card")
+</div>
 
-
-### Fonts
+### 🕵️ Fonts
 
 <details>
 	<summary>Free, monospaced fonts</summary>
@@ -197,7 +203,7 @@ _____
 <br>
 
 _____
-## Helpful Links
+## 🕸️ Helpful Links
 
 See [Credits](credits.md "Credits")
 <br>
