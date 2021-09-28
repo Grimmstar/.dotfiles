@@ -1,5 +1,8 @@
 {
   "dependencies": {
-    "github-markdown-dracula-css": "^4.0.3"
+    "colorette": "^2.0.7",
+    "github-markdown-dracula-css": "^4.0.3",
+    "gradient-string": "^1.2.0",
+    "themer": "^3.3.9"
   }
 }

@@ -1,0 +1,8 @@
+
+# DIRCOLORS
+# -----------------------------------------------------------------------------
+
+if [ -f ~/.dircolors ]; then
+    eval "`dircolors -b ~/.dircolors`"
+fi
+

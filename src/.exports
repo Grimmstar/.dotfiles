@@ -34,6 +34,7 @@ export NODE_REPL_MODE='sloppy';
 
 # Enable colors
 export CLICOLOR=1
+export TERM=xterm-256color
 
 # Make Python use UTF-8 encoding for output to stdin, stdout, and stderr.
 export PYTHONIOENCODING='UTF-8';
@@ -60,8 +61,6 @@ export BASH_SILENCE_DEPRECATION_WARNING=1;
 # Colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-export NVM_DIR="$HOME/.nvm"
-
 # Set up Pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
@@ -73,3 +72,4 @@ eval "$(pyenv virtualenv-init -)"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+

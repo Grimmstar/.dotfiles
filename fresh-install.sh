@@ -11,7 +11,8 @@
 #---------------------------------------------------------------------------------------------
 #
 # Fresh_Install
-#    Installation script for a fresh Ubuntu setup. To run, use './fresh_install.sh'
+#    Installation script for a fresh Ubuntu setup, running on WSL2. on Windows 10.
+#	 To run, use './fresh_install.sh'
 #
 # Source:
 #   [Grimmstar's .dotfiles](https://github.com/Grimmstar/.dotfiles)
@@ -71,7 +72,7 @@ echo -e "${BPurple}
 #${NC}              🌏  ${BWhite}3rd-party PPAs${NC}  🌏              ${BPurple}#
 ####################################################${NC}"
 sleep 1
-c_info "This step adds the private repositories for Ubuntu, Git, Docker, and NGINX so that we can be sure they are always the most up-to-date version."
+c_info "This step adds the private repositories for Ubuntu, Git, Docker, and NGINX, amongst others, so that we can be sure they are always the most up-to-date version."
 sleep 1
 c_question "Do you want to add the PPAs? [y/n]"
 read ppa_answer
@@ -148,6 +149,10 @@ sleep 2
 
 c_info "Ensuring that we can communicate through the Windows network..."
 windows
+sleep 2
+c_info "Configuring systemd to work so that we can use the `systemd` command..."
+configure_systemd
+sleep 2
 
 echo -e "${BPurple}
 ####################################################

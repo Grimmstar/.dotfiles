@@ -41,21 +41,38 @@ old=".OLD"
 #	Functions
 
 function show_header() {
-	cat <<"HEADER"
+	clear
+	printf "\n\n
 
-  ██████╗ ██████╗ ██╗███╗   ███╗███╗   ███╗███████╗████████╗ █████╗ ██████╗
- ██╔════╝ ██╔══██╗██║████╗ ████║████╗ ████║██╔════╝╚══██╔══╝██╔══██╗██╔══██╗
- ██║  ███╗██████╔╝██║██╔████╔██║██╔████╔██║███████╗   ██║   ███████║██████╔╝
- ██║   ██║██╔══██╗██║██║╚██╔╝██║██║╚██╔╝██║╚════██║   ██║   ██╔══██║██╔══██╗
- ╚██████╔╝██║  ██║██║██║ ╚═╝ ██║██║ ╚═╝ ██║███████║   ██║   ██║  ██║██║  ██║
-  ╚═════╝ ╚═╝  ╚═╝╚═╝╚═╝     ╚═╝╚═╝     ╚═╝╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝
+   ╔════════════════════════*.·:·.★ ✦ ★.·:·.*════════════════════════╗
+   ║                                                                 ║
+
+ [38;5;105m██████  ██████  ██ ███    ███ ███    ███ ███████ ████████  █████  ██████[0m
+[38;5;141m██       ██   ██ ██ ████  ████ ████  ████ ██         ██    ██   ██ ██   ██[0m
+[38;5;177m██   ███ ██████  ██ ██ ████ ██ ██ ████ ██ ███████    ██    ███████ ██████[0m
+[38;5;213m██    ██ ██   ██ ██ ██  ██  ██ ██  ██  ██      ██    ██    ██   ██ ██   ██[0m
+ [38;5;207m██████  ██   ██ ██ ██      ██ ██      ██ ███████    ██    ██   ██ ██   ██[0m
                                          Automated techno alchemy by Cyriina
-HEADER
+
+   ║ This script automates the set-up of a fresh system install,  ║
+   ║  therefore, it is going to be making a lot of changes to the system.  ║
+   ║   Please make sure you have backed up any important files and configs.║
+   ╚════════════════════════*.·:·.★ ✦ ★.·:·.*════════════════════════╝
+
+/n"
+}
+
+function configure_systemd() {
+	bash $(dirname $0)/utils/systemd-script/ubuntu-wsl2-systemd-script.sh
 }
 
 function add_ppas() {
 	##	Git
 	sudo add-apt-repository ppa:git-core/ppa -y
+	##	Gimp
+	sudo add-apt-repository ppa:otto-kesselgulasch/gimp -y
+	## OpenJDK
+	sudo add-apt-repository ppa:openjdk-r/ppa -y
 	##	Github
 	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0
 	sudo apt-add-repository https://cli.github.com/packages
@@ -63,13 +80,23 @@ function add_ppas() {
 	sudo add-apt-repository ppa:ondrej/nginx -y
 	##	PostGreSQL
 	curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-	sudo sh -c 'echo "deb [arch=amd64] http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+	sudo sh -c 'echo "deb [arch=amd64] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
 	##	Docker
 	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 	sudo add-apt-repository \
 		"deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+	##	Google Cloud SDK
+	sudo sh -c 'echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" > /etc/apt/sources.list.d/google-cloud-sdk.list'
+	curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+	##	Terminator
+	sudo add-apt-repository ppa:mattrose/terminator
+	##	Neofetch
+	sudo add-apt-repository ppa:dawidd0811/neofetch
 	##	Ubuntu Universe
 	sudo add-apt-repository universe
+	##	Heroku
+	echo "deb https://cli-assets.heroku.com/apt ./" > /etc/apt/sources.list.d/heroku.list
+	curl https://cli-assets.heroku.com/apt/release.key | sudo apt-key add -
 }
 
 function update_system() {
@@ -353,6 +380,15 @@ function system_mods() {
 		cd fonts
 		./install.sh
 	fi
+
+	##	Install `snapd`, apply a workaround for WSL missing `systemd`, and install Dracula theme
+		sudo apt-get install -y snapd
+		sudo apt-get update && sudo apt-get install -yqq daemonize dbus-user-session fontconfig
+		sudo daemonize /usr/bin/unshare --fork --pid --mount-proc /lib/systemd/systemd --system-unit=basic.target
+		exec sudo nsenter -t $(pidof systemd) -a su - $LOGNAME
+		sudo snap install dracula-gtk-theme
+		gsettings set org.gnome.desktop.interface gtk-theme "Dracula"
+		gsettings set org.gnome.desktop.wm.preferences theme "Dracula"
 }
 
 function link_dotfiles() {

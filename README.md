@@ -6,11 +6,17 @@
 
 I break things. **A lot.** Between local web developement, virtual machines, and my habit of acting first, thinking later, I got *really* tired of setting up new OS installs. So I decided to make it easier on myself with this repository.
 
+<br>
+<br>
+
 🦇 **DISCLAIMER** 🦇
 ==============================
 This is a very, very, very much work-in-progress thing. I've Frankenstein'd a bunch of snippets from other people's .dotfiles to create these. So many, in fact, that I'm not even sure of my sources, soooo if you see something you want to be credited for, let me know.
 
 </div>
+
+<br>
+<br>
 
 ## ☠️ Contents
 <div style="padding: 15px; border: 2px solid transparent; margin-bottom: 20px; border-radius: 6px; color: #8319b8; background-color: #e3c6f1; border-color: #8319b8; width: 40%;">
@@ -27,12 +33,15 @@ This is a very, very, very much work-in-progress thing. I've Frankenstein'd a bu
 - [To-Do](#to-do)
 - [License](#license)
 </div>
+
 I use Ubuntu | WSL2 running on Windows 10. Some of these scripts and options may not work out of the box for you. Sorry.
+
+_____
 
 <details>
 <summary>If you need to install WSL2 (or upgrade from WSL1), start here.</summary>
 
-### Enable WSL
+### ❶ Enable WSL
 
 *[WSL development on GitHub](https://github.com/microsoft/WSL)*
 
@@ -57,20 +66,20 @@ Start-Process -Filepath "$wslUpdateInstallerFilePath"
 wsl --set-default-version 2
 ```
 
-#### Choose an Ubuntu Distro from the Microsoft Store
+#### ❷ Choose an Ubuntu Distro from the Microsoft Store
 
 - [Ubuntu](https://www.microsoft.com/en-us/p/ubuntu/9nblggh4msv6)
 - [Ubuntu 20.04](https://www.microsoft.com/en-us/p/ubuntu-2004-lts/9n6svws3rx71)
 - [Ubuntu 18.04](https://www.microsoft.com/en-us/p/ubuntu-1804-lts/9n9tngvndl3q)
 - [Ubuntu 16.04](https://www.microsoft.com/en-us/p/ubuntu-1604/9pjn388hp8c9)
 
-#### Set Up Ubuntu User
+#### ❸ Set Up Ubuntu User
 
 Boot the Ubuntu app you just installed and follow any instructions to setup your Ubuntu user profile.
 
 Update Ubuntu deps with: `sudo apt-get update && sudo apt-get upgrade`
 
-#### Set Default Ubuntu Distro
+#### ❹ Set Default Ubuntu Distro
 
 If you installed more than one version of Ubuntu, or you plan on installing others in the future, go ahead and set the default distro you want being used.
 
@@ -84,22 +93,24 @@ wsl --set-version Ubuntu-20.04 2
 wsl --list --verbose
 ```
 
-#### Windows Terminal
+#### ❺ Windows Terminal
 
 *[Windows Terminal development on GitHub](https://github.com/microsoft/terminal)*
 
 Microsoft's [Terminal app](https://www.microsoft.com/store/productId/9N0DX20HK701) is a modern terminal app designed for seamless integration between Windows and WSL, including support for different shells, custom themes, tabs and unicode (read emoji).
 
-#### VSCode and WSL2
+#### ❻ VSCode and WSL2
 *[VSCode remote server development on GitHub](https://github.com/microsoft/vscode-remote-release)*
 With VSCode's remote server feature, it has native support for WSL. You can run `code .` (or `code-insiders .` if you're using the Insiders version) from within a folder in any terminal, and VSCode makes the magic happen. See the [docs for further information](https://code.visualstudio.com/docs/remote/wsl).
 
-#### Next Steps
+#### ❼ Next Steps
 
 At this point, you should have WSL2 working and an Ubunto distro installed. If your Ubuntu user is set up and your terminal is ready to go, follow the rest of the guide below.
 </details>
 
-## 🦴 Ubuntu Scripts
+_____
+
+### 🦴 Ubuntu Scripts
 
 Items installed in the following scripts include:
 
@@ -111,7 +122,9 @@ Items installed in the following scripts include:
 
 </div>
 
-### 🤖 Auto Install
+_____
+
+## 🤖 Auto Install
 ![lolcat](assets/lolcat.png?raw=true "lolcat")
 
 <details>
@@ -128,7 +141,9 @@ Items installed in the following scripts include:
     ```
 </details>
 
-### 🗡️ Manual Installation
+_____
+
+## 🗡️ Manual Installation
 
 <details>
 <summary>Don't want to break things? Here is a safe place to start</summary>
@@ -136,7 +151,9 @@ Items installed in the following scripts include:
 - Open `fresh-install.sh` and copy/paste the commands you wish to use from top to bottom. I mean, that's the simplest way I can put it.
 </details>
 
-### 🧚 Xfce4 and xRDP
+_____
+
+#### 🧚 Xfce4 and xRDP
 
 <details>
 <summary>To access a Linux GUI from Windows with Xfce4 and xRDP, follow the instructions below</summary>
@@ -172,12 +189,12 @@ At this point, you should be able to open an RDP session from Windows 10.
 - Connect the remote desktop
 
 </details>
-<br>
 
 _____
+
 ## 🔮 Extras
 
-#### Terminal card
+##### Terminal card
 <div align="center">
 
 **`~/.dotfiles/extras/cyriinagrimm`**
@@ -185,7 +202,9 @@ _____
 ![Cy Card](assets/terminal_card.png?raw=true "Cy Card")
 </div>
 
-### 🕵️ Fonts
+_____
+
+## 🕵️ Fonts
 
 <details>
 	<summary>Free, monospaced fonts</summary>
@@ -200,9 +219,9 @@ _____
 - [NovaMono](https://www.1001fonts.com/novamono-font.html): mono, ligatures, free
 
 </details>
-<br>
 
 _____
+
 ## 🕸️ Helpful Links
 
 See [Credits](credits.md "Credits")
@@ -210,6 +229,14 @@ See [Credits](credits.md "Credits")
 
 _____
 
-##### License
+## ✏️ To-Do
+- [ ] Clean up dotfiles (`.bashrc`, `.profile`, `.bash_profile`, etc) to remove uneeded/unused/duplicate things
+- [ ] Better way to auto-start services
+- [ ] Dracula color theme for LS
+- [ ] Better way to source dotfiles
+
+_____
+
+###### License
 
 [MIT License](LICENSE) © [Cyriina Grimm](https://github.com/Grimmstar/)
