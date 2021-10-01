@@ -25,6 +25,24 @@
 
 is-executable getconf && PATH=$($(command -v getconf) PATH)
 
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/cyriina/google-cloud-sdk/path.bash.inc' ]; then . '/home/cyriina/google-cloud-sdk/path.bash.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/cyriina/google-cloud-sdk/completion.bash.inc' ]; then . '/home/cyriina/google-cloud-sdk/completion.bash.inc'; fi
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+
+# Add all local binary paths to the system path.
+if [ -d "$HOME/.local" ] ; then
+    PATH="$HOME/.local/bin:$PATH"
+fi
+if [ -d "$HOME/local" ] ; then
+    PATH="$HOME/local/bin:$PATH"
+fi
 # Prepend new items to path (if directory exists)
 
 prepend-path "/bin"

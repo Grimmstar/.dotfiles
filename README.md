@@ -202,6 +202,14 @@ _____
 ![Cy Card](assets/terminal_card.png?raw=true "Cy Card")
 </div>
 
+##### MOTD/Login Banner
+<div align="center">
+
+**`~/.dotfiles/extras/MOTD`**
+
+![Preview](extras/MOTD/assets/cy_motd.png "Preview")
+</div>
+
 _____
 
 ## 🕵️ Fonts
