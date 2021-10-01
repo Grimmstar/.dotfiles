@@ -207,7 +207,7 @@ _____
 
 **`~/.dotfiles/extras/MOTD`**
 
-![Preview](extras/MOTD/assets/cy_motd.png "Preview")
+![Preview](extras/MOTD/assets/cy_motd.png?raw=true "Preview")
 </div>
 
 _____
