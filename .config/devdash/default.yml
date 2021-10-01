@@ -1,0 +1,79 @@
+---
+general:
+  refresh: 600
+  keys:
+    quit: "C-c"
+    hot_reload: "C-r"
+
+
+projects:
+  - name: Default dashboard located at $HOME/.config/devdash/default.yml
+    services:
+      monitor:
+        address: "https://thevaluable.dev"
+    widgets:
+      - row:
+          - col:
+              size: "8"
+              elements:
+                - name: lh.bar_memory
+                  options:
+                    unit: "mb"
+                    color: magenta
+                    bar_gap: 1
+                    bar_width: 10
+                - name: lh.table_disk
+                  options:
+                    color: magenta
+                - name: lh.table
+                  options:
+                    title: " Display ouput of ls -lah "
+                    command: "ls -lah test | tail -n +2"
+                    color: magenta
+                  - col:
+              size: "4"
+              elements:
+                - name: lh.gauge_cpu_rate
+                  options:
+                    color: blue
+                    bar_color: green
+                - name: lh.gauge_memory_rate
+                  options:
+                    color: blue
+                    bar_color: green
+                - name: lh.gauge_swap_rate
+                  options:
+                    color: blue
+                    bar_color: green
+                - name: lh.box_uptime
+                  options:
+                    color: blue
+                - name: lh.box_load
+                  options:
+                    color: blue
+                - name: lh.box_processes
+                  options:
+                    color: blue
+                - name: lh.box_net_io
+                  options:
+                    color: green
+                    unit: "mb"
+                - name: lh.box_disk_io
+                  options:
+                    color: green
+                    unit: "gb"
+                - name: lh.box
+                  options:
+                    color: green
+                    command: "ls"
+                - name: lh.gauge
+                  options:
+                    color: green
+                    bar_color: magenta
+                    command: "sh ./data.sh"
+                - name: lh.bar
+                  options:
+                    color: green
+                    headers: "header1,header2,header3,header4"
+                    bar_color: magenta
+                    command: "sh ./data-bar.sh"

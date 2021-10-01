@@ -30,3 +30,4 @@ curl_trace.txt
 yarn.lock
 test_v2.sh
 test.sh
+linux.sh

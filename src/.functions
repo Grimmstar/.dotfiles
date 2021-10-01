@@ -1,0 +1,207 @@
+#	---------------------------------------------------------------------------------------------
+#
+#	  ██████╗ ██████╗ ██╗███╗   ███╗███╗   ███╗███████╗████████╗ █████╗ ██████╗
+#	 ██╔════╝ ██╔══██╗██║████╗ ████║████╗ ████║██╔════╝╚══██╔══╝██╔══██╗██╔══██╗
+#	 ██║  ███╗██████╔╝██║██╔████╔██║██╔████╔██║███████╗   ██║   ███████║██████╔╝
+#	 ██║   ██║██╔══██╗██║██║╚██╔╝██║██║╚██╔╝██║╚════██║   ██║   ██╔══██║██╔══██╗
+#	 ╚██████╔╝██║  ██║██║██║ ╚═╝ ██║██║ ╚═╝ ██║███████║   ██║   ██║  ██║██║  ██║
+#	  ╚═════╝ ╚═╝  ╚═╝╚═╝╚═╝     ╚═╝╚═╝     ╚═╝╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝
+#
+#	---------------------------------------------------------------------------------------------
+#
+#	 .functions
+#	    Useful functions
+#
+#	 Source:
+#	   [Grimmstar's .dotfiles](https://github.com/Grimmstar/.dotfiles)
+#
+#	 Authors:
+#	   Cyriina Grimm <xxgrimmchildxx@gmail.com>
+#
+#	---------------------------------------------------------------------------------------------
+
+#	---------------------------------------------------------------------------------------------
+#   MAKE TERMINAL BETTER
+
+function command_errors() {
+	local LAST_COMMAND=$? # Must come first!
+
+	# Define colors
+	local LIGHTGRAY="\033[0;37m"
+	local WHITE="\033[1;37m"
+	local BLACK="\033[0;30m"
+	local DARKGRAY="\033[1;30m"
+	local RED="\033[0;31m"
+	local LIGHTRED="\033[1;31m"
+	local GREEN="\033[0;32m"
+	local LIGHTGREEN="\033[1;32m"
+	local BROWN="\033[0;33m"
+	local YELLOW="\033[1;33m"
+	local BLUE="\033[0;34m"
+	local LIGHTBLUE="\033[1;34m"
+	local MAGENTA="\033[0;35m"
+	local LIGHTMAGENTA="\033[1;35m"
+	local CYAN="\033[0;36m"
+	local LIGHTCYAN="\033[1;36m"
+	local NOCOLOR="\033[0m"
+
+	# Show error exit code if there is one
+	if [[ $LAST_COMMAND != 0 ]]; then
+		# PS1="\[${RED}\](\[${LIGHTRED}\]ERROR\[${RED}\])-(\[${LIGHTRED}\]Exit Code \[${WHITE}\]${LAST_COMMAND}\[${RED}\])-(\[${LIGHTRED}\]"
+		PS1="\[${DARKGRAY}\](\[${LIGHTRED}\]ERROR\[${DARKGRAY}\])-(\[${RED}\]Exit Code \[${LIGHTRED}\]${LAST_COMMAND}\[${DARKGRAY}\])-(\[${RED}\]"
+		if [[ $LAST_COMMAND == 1 ]]; then
+			PS1+="General error"
+		elif [ $LAST_COMMAND == 2 ]; then
+			PS1+="Missing keyword, command, or permission problem"
+		elif [ $LAST_COMMAND == 126 ]; then
+			PS1+="Permission problem or command is not an executable"
+		elif [ $LAST_COMMAND == 127 ]; then
+			PS1+="Command not found"
+		elif [ $LAST_COMMAND == 128 ]; then
+			PS1+="Invalid argument to exit"
+		elif [ $LAST_COMMAND == 129 ]; then
+			PS1+="Fatal error signal 1"
+		elif [ $LAST_COMMAND == 130 ]; then
+			PS1+="Script terminated by Control-C"
+		elif [ $LAST_COMMAND == 131 ]; then
+			PS1+="Fatal error signal 3"
+		elif [ $LAST_COMMAND == 132 ]; then
+			PS1+="Fatal error signal 4"
+		elif [ $LAST_COMMAND == 133 ]; then
+			PS1+="Fatal error signal 5"
+		elif [ $LAST_COMMAND == 134 ]; then
+			PS1+="Fatal error signal 6"
+		elif [ $LAST_COMMAND == 135 ]; then
+			PS1+="Fatal error signal 7"
+		elif [ $LAST_COMMAND == 136 ]; then
+			PS1+="Fatal error signal 8"
+		elif [ $LAST_COMMAND == 137 ]; then
+			PS1+="Fatal error signal 9"
+		elif [ $LAST_COMMAND -gt 255 ]; then
+			PS1+="Exit status out of range"
+		else
+			PS1+="Unknown error code"
+		fi
+		PS1+="\[${DARKGRAY}\])\[${NOCOLOR}\]\n"
+	else
+		PS1=""
+	fi
+}
+
+#	---------------------------------------------------------------------------------------------
+#   SEARCH
+
+#   mans:   Search manpage given in agument '1' for term given in argument '2' (case insensitive)
+#           displays paginated result with colored search terms and two lines surrounding each hit.             Example: mans mplayer codec
+mans() {
+	man $1 | grep -iC2 --color=always $2 | less
+}
+ff() { /usr/bin/find . -name "$@"; }     # ff:       Find file under the current directory
+ffs() { /usr/bin/find . -name "$@"'*'; } # ffs:      Find file whose name starts with a given string
+ffe() { /usr/bin/find . -name '*'"$@"; } # ffe:      Find file whose name ends with a given string
+
+#	---------------------------------------------------------------------------------------------
+#   FILE AND FOLDER MANAGEMENT
+
+zipf() { zip -r "$1".zip "$1"; }       # zipf:         To create a ZIP archive of a folder
+
+#   extract:  Extract most know archives with one command
+extract() {
+	if [ -f $1 ]; then
+		case $1 in
+		*.tar.bz2) tar xjf $1 ;;
+		*.tar.gz) tar xzf $1 ;;
+		*.bz2) bunzip2 $1 ;;
+		*.rar) unrar e $1 ;;
+		*.gz) gunzip $1 ;;
+		*.tar) tar xf $1 ;;
+		*.tbz2) tar xjf $1 ;;
+		*.tgz) tar xzf $1 ;;
+		*.zip) unzip $1 ;;
+		*.Z) uncompress $1 ;;
+		*.7z) 7z x $1 ;;
+		*) echo "'$1' cannot be extracted via extract()" ;;
+		esac
+	else
+		echo "'$1' is not a valid file"
+	fi
+}
+
+#	---------------------------------------------------------------------------------------------
+#   PROCESS MANAGEMENT
+
+#   findPid: find out the pid of a specified process
+#       Note that the command name can be specified via a regex
+#       E.g. findPid '/d$/' finds pids of all processes with names ending in 'd'
+#       Without the 'sudo' it will only find processes of the current user
+findPid() { lsof -t -c "$@"; }
+
+#   my_ps: List processes owned by my user:
+my_ps() { ps $@ -u $USER -o pid,%cpu,%mem,start,time,bsdtime,command; }
+
+#	---------------------------------------------------------------------------------------------
+#   NETWORKING
+
+#   ii:  display useful host related informaton
+ii() {
+	echo -e "\nYou are logged on ${RED}$HOST"
+	echo -e "\nAdditionnal information:$NC "
+	uname -a
+	echo -e "\n${RED}Users logged on:$NC "
+	w -h
+	echo -e "\n${RED}Current date :$NC "
+	date
+	echo -e "\n${RED}Machine stats :$NC "
+	uptime
+	echo -e "\n${RED}Current network location :$NC "
+	scselect
+	echo -e "\n${RED}Public facing IP Address :$NC "
+	myip
+	#echo -e "\n${RED}DNS Configuration:$NC " ; scutil --dns
+	echo
+}
+
+#	---------------------------------------------------------------------------------------------
+#   SYSTEM
+#   ---------------------------------------
+httpHeaders() { /usr/bin/curl -I -L $@; }             # httpHeaders:      Grabs headers from web page
+
+#   httpDebug:  Download a web page and show info on what took time
+httpDebug() { /usr/bin/curl $@ -o /dev/null -w "dns: %{time_namelookup} connect: %{time_connect} pretransfer: %{time_pretransfer} starttransfer: %{time_starttransfer} total: %{time_total}\n"; }
+
+# Extract archives - use: extract <file>
+# Based on http://dotfiles.org/~pseup/.bashrc
+function extract() {
+	if [ -f "$1" ] ; then
+		local filename=$(basename "$1")
+		local foldername="${filename%%.*}"
+		local fullpath=`perl -e 'use Cwd "abs_path";print abs_path(shift)' "$1"`
+		local didfolderexist=false
+		if [ -d "$foldername" ]; then
+			didfolderexist=true
+			read -p "$foldername already exists, do you want to overwrite it? (y/n) " -n 1
+			echo
+			if [[ $REPLY =~ ^[Nn]$ ]]; then
+				return
+			fi
+		fi
+		mkdir -p "$foldername" && cd "$foldername"
+		case $1 in
+			*.tar.bz2) tar xjf "$fullpath" ;;
+			*.tar.gz) tar xzf "$fullpath" ;;
+			*.tar.xz) tar Jxvf "$fullpath" ;;
+			*.tar.Z) tar xzf "$fullpath" ;;
+			*.tar) tar xf "$fullpath" ;;
+			*.taz) tar xzf "$fullpath" ;;
+			*.tb2) tar xjf "$fullpath" ;;
+			*.tbz) tar xjf "$fullpath" ;;
+			*.tbz2) tar xjf "$fullpath" ;;
+			*.tgz) tar xzf "$fullpath" ;;
+			*.txz) tar Jxvf "$fullpath" ;;
+			*.zip) unzip "$fullpath" ;;
+			*) echo "'$1' cannot be extracted via extract()" && cd .. && ! $didfolderexist && rm -r "$foldername" ;;
+		esac
+	else
+		echo "'$1' is not a valid file"
+	fi
+}

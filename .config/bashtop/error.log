@@ -1,0 +1,15 @@
+ 
+New instance of bashtop version: 0.9.25 Pid: 140832
+ 
+New instance of bashtop version: 0.9.25 Pid: 1259752
+ 
+New instance of bashtop version: 0.9.25 Pid: 1276944
+ 
+New instance of bashtop version: 0.9.25 Pid: 2393911
+ 
+New instance of bashtop version: 0.9.25 Pid: 2835186
+09:19:11 ERROR: On line 1887 
+09:19:11 ERROR: On line 1887 (MUTED!)
+/usr/bin/bashtop: line 1334: ((: 0 1094435382 0 0 0 0 0 0 0 1843370115: syntax error in expression (error token is "1094435382 0 0 0 0 0 0 0 1843370115")
+/usr/bin/bashtop: line 1334: ((: 0 1094435382 0 0 0 0 0 0 0 1843370115: syntax error in expression (error token is "1094435382 0 0 0 0 0 0 0 1843370115")
+/usr/bin/bashtop: line 3037: 0 1094435382 0 0 0 0 0 0 0 1843370115: syntax error in expression (error token is "1094435382 0 0 0 0 0 0 0 1843370115")

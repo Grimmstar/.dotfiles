@@ -41,3 +41,17 @@ then
 else
   service nginx start
 fi
+
+if ps ax |grep -v grep | grep 'ufw' > /dev/null
+then
+  echo 'UFW is already running'
+else
+  service ufw start
+fi
+
+if ps ax |grep -v grep | grep 'ssh' > /dev/null
+then
+  echo 'SSH is already running'
+else
+  service ssh start
+fi
