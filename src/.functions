@@ -253,3 +253,27 @@ function extract() {
 parse_git_branch() {
     git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
+
+# Executable
+is-executable() {
+	local BIN=$(command -v "$1" 2>/dev/null)
+	if [[ ! $BIN == "" && -x $BIN ]]; then true; else false; fi
+}
+
+# Add to path
+prepend-path() {
+	[ -d $1 ] && PATH="$1:$PATH"
+}
+
+pathmunge () {
+    case ":${PATH}:" in
+        *:"$1":*)
+            ;;
+        *)
+            if [ "$2" = "after" ] ; then
+                PATH=$PATH:$1
+            else
+                PATH=$1:$PATH
+            fi
+    esac
+}

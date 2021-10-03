@@ -156,6 +156,10 @@ LIGHTPURPLE='\033[1;35m'
 LIGHTCYAN='\033[1;36m'
 WHITE='\033[1;37m'
 
+# Load all our functions
+[ -f "${HOME}/.functions" ] && source "${HOME}/.functions"
+[ -f "${HOME}/.functions.local" ] && source "${HOME}/.functions.local"
+
 # Get color theme
 [ -f "${HOME}/.colors" ] && source "${HOME}/.colors"
 [ -f "${HOME}/.dir_colors" ] && source "${HOME}/.dir_colors/dircolors"
@@ -168,12 +172,11 @@ WHITE='\033[1;37m'
 [ -f "${HOME}/.exports" ] && source "${HOME}/.exports"
 [ -f "${HOME}/.exports.local" ] && source "${HOME}/.exports.local"
 
-# Load all our functions
-[ -f "${HOME}/.functions" ] && source "${HOME}/.functions"
-[ -f "${HOME}/.functions.local" ] && source "${HOME}/.functions.local"
-
 # Load our paths
 [ -f "${HOME}/.path" ] && source "${HOME}/.path"
 [ -f "${HOME}/.path.local" ] && source "${HOME}/.path.local"
 
-export PS1="?? \[$(tput bold)\]\[\033[38;5;98m\]\u\[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]\[\033[38;5;199m\]{\[$(tput sgr0)\]\[\033[38;5;250m\]\w\[$(tput sgr0)\]\[\033[38;5;199m\]}\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]\[\033[38;5;39m\]>\[$(tput sgr0)\]\[\033[38;5;50m\]>\[$(tput sgr0)\]\[\033[38;5;48m\]>\[$(tput sgr0)\] "
+# Load our prompt
+[ -f "${HOME}/.bash_prompt" ] && source "${HOME}/.bash_prompt"
+[ -f "${HOME}/.bash_prompt.local" ] && source "${HOME}/.bash_prompt.local"
+

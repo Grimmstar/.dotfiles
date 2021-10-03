@@ -20,6 +20,26 @@
 #
 #	---------------------------------------------------------------------------------------------
 
-if [ -n "$BASH" ] && [ -r ~/.bashrc ]; then
-    . ~/.bashrc
+if [ -f ~/.bashrc ]; then
+    source ~/.bashrc
+fi
+
+if [ -f ~/.exports ]; then
+source ~/.exports
+fi
+
+if [ -f ~/.path ]; then
+source ~/.path
+fi
+
+if [ -f ~/.colors ]; then
+source ~/.colors
+fi
+
+if [ -f ~/.aliases ]; then
+source ~/.aliases
+fi
+
+if [ -f ~/.functions ]; then
+source ~/.functions
 fi

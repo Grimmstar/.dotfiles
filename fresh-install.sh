@@ -42,15 +42,17 @@ trap traperr ERR
 #---------------------------------------------------------------------------------------------
 # Script
 
+#	Start by displaying our banner, then have the script pause for a moment
 show_header
 sleep 2
-# 3 seconds wait time to start the setup
-for i in $(seq 3 -1 1); do
-	echo -ne "$i\rThe setup will start in... "
+
+# 	Display 5 seconds count down before script executes
+for i in $(seq 5 -1 1); do
+	echo -ne "$i\rGetting ready to proceed with the automation in... "
 	sleep 1
 done
 
-echo -e "${BPurple}
+printf "${BPurple}
 ####################################################
 #${NC}                    ${BWhite}Pre-Config${NC}                    ${BPurple}#
 ####################################################${NC}"

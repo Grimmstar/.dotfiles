@@ -24,15 +24,16 @@
 #	Sources
 
 source $(dirname $0)/utils/color_codes.sh
+
 source $(dirname $0)/utils/logging_utils.sh
 
 #	Variables
 
 DOTFILES="~/.dotfiles"
-DOTFILES_SOURCE="$(dirname $0)/src"
-DOTFILES_UTILS="$(dirname $0)/utils"
+DOTFILES_SOURCE="${DOTFILES}/src"
+DOTFILES_UTILS="${DOTFILES}/utils"
 DOTFILES_LISTS="${DOTFILES_UTILS}/lists/"
-FONTS_DIR="$(dirname $0)/bin/.local/fonts"
+FONTS_DIR="${DOTFILES}/bin/.local/fonts"
 BACKUP_DIR="$HOME/.dotfiles-backup/$(date "+%Y%m%d%H%M.%S")"
 
 dest="${HOME}/${1}"
@@ -42,24 +43,7 @@ old=".OLD"
 
 function show_header() {
 	clear
-	printf "\n\n
-
-   ╔════════════════════════*.·:·.★ ✦ ★.·:·.*════════════════════════╗
-   ║                                                                 ║
-
- [38;5;105m██████  ██████  ██ ███    ███ ███    ███ ███████ ████████  █████  ██████[0m
-[38;5;141m██       ██   ██ ██ ████  ████ ████  ████ ██         ██    ██   ██ ██   ██[0m
-[38;5;177m██   ███ ██████  ██ ██ ████ ██ ██ ████ ██ ███████    ██    ███████ ██████[0m
-[38;5;213m██    ██ ██   ██ ██ ██  ██  ██ ██  ██  ██      ██    ██    ██   ██ ██   ██[0m
- [38;5;207m██████  ██   ██ ██ ██      ██ ██      ██ ███████    ██    ██   ██ ██   ██[0m
-                                         Automated techno alchemy by Cyriina
-
-   ║ This script automates the set-up of a fresh system install,  ║
-   ║  therefore, it is going to be making a lot of changes to the system.  ║
-   ║   Please make sure you have backed up any important files and configs.║
-   ╚════════════════════════*.·:·.★ ✦ ★.·:·.*════════════════════════╝
-
-/n"
+	cat extras/grimmstar_header
 }
 
 function configure_systemd() {
