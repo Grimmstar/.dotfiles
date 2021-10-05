@@ -1,0 +1,46 @@
+latest_versions=(
+    "asdf-alias"
+    "asdf-ubuntu"
+    "cheat"
+    "chezmoi"
+    "cookiecutter"
+    "gcloud"
+    "github-cli"
+    "github-markdown-toc"
+    "imagemagick"
+    "make"
+    "mkcert"
+    "nodejs"
+    "postgres"
+    "tmux"
+    "yadm"
+    "yarn"
+)
+
+for i in "${latest_versions[@]}"; do
+    asdf install ${i} latest
+    asdf global ${1} latest
+    done
+
+python_versions=(
+    "2.7.1"
+    "3.4.6"
+    "3.6.7"
+    "3.8.1"
+)
+
+for i in "${python_versions[@]}"; do
+    asdf install python ${i}
+    done
+asdf global python ${python_versions[@]}
+
+java_versions=(
+    "openjdk-9"
+    "openjdk-14"
+    "openjdk-17"
+)
+
+for i in "${java_versions[@]}"; do
+    asdf install java ${i}
+    done
+asdf global java ${java_versions[@]}

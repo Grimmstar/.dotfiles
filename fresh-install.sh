@@ -421,6 +421,35 @@ sleep 2
 
 echo -e "${BPurple}
 ####################################################
+#${NC}              ${BWhite}asdf Plugins${NC}               ${BPurple}#
+####################################################${NC}"
+sleep 1
+if type "asdf" >/dev/null; then
+	c_success "asdf is already installed!"
+fi
+if ! type "asdf" >/dev/null; then
+	c_info "This step will instll asdf and asdf plugins."
+	sleep 1
+	c_question "Proceed? [y/n]"
+	read asdf_answer
+	case "$asdf_answer" in
+	y | Y | yes | Yes)
+		c_success "As you wish..."
+		install_asdf
+		c_success "Done!"
+		;;
+	n | N | no | No)
+		c_warning "Skipping asdf installation"
+		;;
+	*)
+		c_warning "Please respond with yes or no"
+		;;
+	esac
+fi
+sleep 2
+
+echo -e "${BPurple}
+####################################################
 # ${NC}             ${BWhite}System Modifications${NC}                ${BPurple}#
 ####################################################${NC}"
 sleep 1

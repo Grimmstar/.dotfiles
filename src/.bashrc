@@ -176,6 +176,13 @@ WHITE='\033[1;37m'
 [ -f "${HOME}/.path" ] && source "${HOME}/.path"
 [ -f "${HOME}/.path.local" ] && source "${HOME}/.path.local"
 
+[ -f "$HOME/.asdf/asdf.sh" ] && . "$HOME/.asdf/asdf.sh"
+[ -f "$HOME/.asdf/completions/asdf.bash" ] && . "$HOME/.asdf/completions/asdf.bash"
+# Hook direnv into your shell.
+eval "$(asdf exec direnv hook bash)"
+# A shortcut for asdf managed direnv.
+direnv() { asdf exec direnv "$@"; }
+
 # Load our prompt
 [ -f "${HOME}/.bash_prompt" ] && source "${HOME}/.bash_prompt"
 [ -f "${HOME}/.bash_prompt.local" ] && source "${HOME}/.bash_prompt.local"

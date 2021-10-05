@@ -335,6 +335,21 @@ function install_heroku() {
 	heroku login
 }
 
+function install_asdf() {
+	##	Looks for a list of asdf plugins to install
+	if [ -f "${DOTFILES_LISTS}/asdf_plugins" ]; then
+		c_success "Found plugins list. Installing..."
+		for i in $(cat ${DOTFILES_LISTS}/asdf_plugins); do
+				c_install "Installing plugin ${i} "
+				asdf plugin-add ${i}
+
+		done
+	else
+		c_error "No plugins file found. Skipping plugin installation..."
+	fi
+	sh ${DOTFILES_LISTS}/asdf_plugins_install
+}
+
 function system_mods() {
 	##	Set up .dircolors for file system differentiation
 	wget https://raw.github.com/trapd00r/LS_COLORS/master/LS_COLORS -O ${HOME}/.dircolors
