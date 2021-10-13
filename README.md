@@ -18,10 +18,7 @@ This is a very, very, very much work-in-progress thing. I've Frankenstein'd a bu
 
 </div>
 
-<br>
-<br>
-<br>
-<br>
+![Divider](assets/divider.png?raw=true "Divider")
 
 ## ☠️ Contents
 <div style="padding: 15px; border: 2px solid transparent; margin-bottom: 20px; border-radius: 6px; color: #8319b8; background-color: #e3c6f1; border-color: #8319b8; width: 40%;">
