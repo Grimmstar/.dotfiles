@@ -38,9 +38,7 @@ This is a very, very, very much work-in-progress thing. I've Frankenstein'd a bu
 
 I use Ubuntu | WSL2 running on Windows 10. Some of these scripts and options may not work out of the box for you. Sorry.
 
-_____
-<br>
-<br>
+![Divider](assets/divider.png?raw=true "Divider")
 
 <details>
 <summary>If you need to install WSL2 (or upgrade from WSL1), start here.</summary>
@@ -112,10 +110,7 @@ With VSCode's remote server feature, it has native support for WSL. You can run 
 At this point, you should have WSL2 working and an Ubunto distro installed. If your Ubuntu user is set up and your terminal is ready to go, follow the rest of the guide below.
 </details>
 
-_____
-	
-<br>
-<br>
+![Divider](assets/divider.png?raw=true "Divider")
 	
 ### 🦴 Ubuntu Scripts
 
@@ -151,10 +146,7 @@ _____
     ```
 </details>
 
-_____
-	
-<br>
-<br>
+![Divider](assets/divider.png?raw=true "Divider")
 	
 ## 🗡️ Manual Installation
 
@@ -164,10 +156,7 @@ _____
 - Open `fresh-install.sh` and copy/paste the commands you wish to use from top to bottom. I mean, that's the simplest way I can put it.
 </details>
 
-_____
-	
-<br>
-<br>
+![Divider](assets/divider.png?raw=true "Divider")
 	
 #### 🧚 Xfce4 and xRDP
 
@@ -206,10 +195,7 @@ At this point, you should be able to open an RDP session from Windows 10.
 
 </details>
 
-_____
-	
-<br>
-<br>
+![Divider](assets/divider.png?raw=true "Divider")
 	
 ## 🔮 Extras
 
@@ -250,20 +236,18 @@ _____
 
 </details>
 
-_____
-	
-<br>
-<br>
+![Divider](assets/divider.png?raw=true "Divider")
 	
 ## 🕸️ Helpful Links
 
 See [Credits](credits.md "Credits")
 <br>
 
-_____
-	
-<br>
-<br>
+![Divider](assets/divider.png?raw=true "Divider")
+
+## More Preview Images
+
+![Bashtop](assets/bashtop_grimmstar_theme.png?raw=true "Bashtop")
 	
 ## ✏️ To-Do
 - [ ] Clean up dotfiles (`.bashrc`, `.profile`, `.bash_profile`, etc) to remove uneeded/unused/duplicate things
