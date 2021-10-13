@@ -2,6 +2,9 @@
 
 ![Cy Banner](assets/Cyriina_Banner.png?raw=true "Cy Banner")
 
+<br>
+<br>
+
 # Cyriina's .dotfiles
 
 I break things. **A lot.** Between local web developement, virtual machines, and my habit of acting first, thinking later, I got *really* tired of setting up new OS installs. So I decided to make it easier on myself with this repository.
@@ -15,6 +18,8 @@ This is a very, very, very much work-in-progress thing. I've Frankenstein'd a bu
 
 </div>
 
+<br>
+<br>
 <br>
 <br>
 
@@ -37,6 +42,8 @@ This is a very, very, very much work-in-progress thing. I've Frankenstein'd a bu
 I use Ubuntu | WSL2 running on Windows 10. Some of these scripts and options may not work out of the box for you. Sorry.
 
 _____
+<br>
+<br>
 
 <details>
 <summary>If you need to install WSL2 (or upgrade from WSL1), start here.</summary>
@@ -109,7 +116,8 @@ At this point, you should have WSL2 working and an Ubunto distro installed. If y
 </details>
 
 _____
-
+<br>
+<br>
 ### 🦴 Ubuntu Scripts
 
 Items installed in the following scripts include:
@@ -121,7 +129,8 @@ Items installed in the following scripts include:
 [`Git`](https://git-scm.com/) ✰ [`Github Cli`](https://cli.github.com/) ✰ [`Python 2 & 3`](https://www.python.org/downloads/) ✰ [`SSH`](https://www.openssh.com/) ✰ [`NVM`](https://github.com/nvm-sh/nvm) ✰ [`NodeJS`](https://nodejs.org/en/) ✰ [`Yarn`](https://yarnpkg.com/) ✰ [`PostgreSQL`](https://www.postgresql.org/) ✰ [`Docker`](https://www.docker.com/) ✰ [`Heroku`](https://www.heroku.com) ✰ [`AWS Cli`](https://aws.amazon.com/cli/) ✰ [`NGINX`](https://www.nginx.com/) ✰ [`Powerline Fonts`](https://github.com/powerline/fonts) ✰ [`Figlet`](http://www.figlet.org/) ✰ [`LOLcat`](https://github.com/busyloop/lolcat)
 
 </div>
-
+<br>
+<br>
 _____
 
 ## 🤖 Auto Install
@@ -142,7 +151,8 @@ _____
 </details>
 
 _____
-
+<br>
+<br>
 ## 🗡️ Manual Installation
 
 <details>
@@ -152,7 +162,8 @@ _____
 </details>
 
 _____
-
+<br>
+<br>
 #### 🧚 Xfce4 and xRDP
 
 <details>
@@ -191,7 +202,8 @@ At this point, you should be able to open an RDP session from Windows 10.
 </details>
 
 _____
-
+<br>
+<br>
 ## 🔮 Extras
 
 ##### Terminal card
@@ -211,7 +223,8 @@ _____
 </div>
 
 _____
-
+<br>
+<br>
 ## 🕵️ Fonts
 
 <details>
@@ -229,14 +242,16 @@ _____
 </details>
 
 _____
-
+<br>
+<br>
 ## 🕸️ Helpful Links
 
 See [Credits](credits.md "Credits")
 <br>
 
 _____
-
+<br>
+<br>
 ## ✏️ To-Do
 - [ ] Clean up dotfiles (`.bashrc`, `.profile`, `.bash_profile`, etc) to remove uneeded/unused/duplicate things
 - [ ] Better way to auto-start services
