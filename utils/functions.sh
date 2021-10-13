@@ -33,8 +33,11 @@ DOTFILES="~/.dotfiles"
 DOTFILES_SOURCE="${DOTFILES}/src"
 DOTFILES_UTILS="${DOTFILES}/utils"
 DOTFILES_LISTS="${DOTFILES_UTILS}/lists/"
+DOTFILES_CONFIG="${DOTFILES}/.config/"
 FONTS_DIR="${DOTFILES}/bin/.local/fonts"
 BACKUP_DIR="$HOME/.dotfiles-backup/$(date "+%Y%m%d%H%M.%S")"
+
+LOGFILE='fresh-install-log'
 
 dest="${HOME}/${1}"
 old=".OLD"
@@ -47,7 +50,7 @@ function show_header() {
 }
 
 function configure_systemd() {
-	bash $(dirname $0)/utils/systemd-script/ubuntu-wsl2-systemd-script.sh
+	bash ${DOTFILES_UTILS}/systemd-script/ubuntu-wsl2-systemd-script.sh
 }
 
 function add_ppas() {
@@ -67,26 +70,25 @@ function add_ppas() {
 	sudo sh -c 'echo "deb [arch=amd64] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
 	##	Docker
 	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-	sudo add-apt-repository \
-		"deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+	sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 	##	Google Cloud SDK
 	sudo sh -c 'echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" > /etc/apt/sources.list.d/google-cloud-sdk.list'
 	curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
 	##	Terminator
-	sudo add-apt-repository ppa:mattrose/terminator
+	sudo add-apt-repository ppa:mattrose/terminator -y
 	##	Neofetch
-	sudo add-apt-repository ppa:dawidd0811/neofetch
+	sudo add-apt-repository ppa:dawidd0811/neofetch -y
 	##	Ubuntu Universe
-	sudo add-apt-repository universe
+	sudo add-apt-repository universe -y
 	##	Heroku
 	echo "deb https://cli-assets.heroku.com/apt ./" > /etc/apt/sources.list.d/heroku.list
 	curl https://cli-assets.heroku.com/apt/release.key | sudo apt-key add -
 }
 
 function update_system() {
-	sudo apt-get update && sudo apt-get upgrade -y
-	sudo apt-get dist-upgrade -f
-	sudo apt autoremove -y
+	sudo apt-get update && sudo apt-get upgrade -y >> ${LOGFILE}
+	sudo apt-get dist-upgrade -f >> ${LOGFILE}
+	sudo apt autoremove -y >> ${LOGFILE}
 }
 
 function install_packages() {
@@ -136,37 +138,28 @@ function install_github() {
 	##	Installs the Github CLI, then checks for a config file. Removes the old file, and symlinks the one from this repository
 	sudo apt install gh
 	test -L ${HOME}/.config/gh || rm -rf ${HOME}/.config/gh
-	ln -vsfn ${DOTFILES_UTILS}/github/config.txt ${HOME}/.config/gh
+	ln -vsfn ${DOTFILES_CONFIG}/gh ${HOME}/.config/gh
 }
 
 function install_ssh() {
 	##	Removes default SSH and re-installs it, then starts the service
 	sudo apt remove -y openssh-server
 	sudo apt install -y openssh-server
-	sudo service ssh start
+	sudo systemctl enable ssh
+	sudo systemctl ssh start
 	##	Modify firewall rules to allow SSH through
 	sudo ufw allow ssh
 	sudo ufw enable
 	sudo ufw status
 	##	Looks for config and HOSTS files, then symlinks them
-	if [ -d ${DOTFILES_UTILS}/ssh ]; then
-		ln -vsf ${DOTFILES_UTILS}/ssh/config ${HOME}/.ssh/config
-		ln -vsf ${DOTFILES_UTILS}/ssh/known_hosts ${HOME}/.ssh/known_hosts
+	if [ -d ${DOTFILES_CONFIG}/.ssh ]; then
+		ln -vsf ${DOTFILES_CONFIG}/.ssh/config ${HOME}/.ssh/config
+		ln -vsf ${DOTFILES_CONFIG}/.ssh/known_hosts ${HOME}/.ssh/known_hosts
 	fi
 	##	Setup keyrings
 	mkdir -p ${HOME}/.local/share
 	test -L ${HOME}/.local/share/keyrings || rm -rf ${HOME}/.local/share/keyrings
 	ln -vsfn ${HOME}/backup/keyrings ${HOME}/.local/share/keyrings
-	## Installs and sets up Homebrew, so we can use Shellenv
-	curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
-	test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
-	test -d /home/linuxbrew/.linuxbrew && eval $(${HOME}/linuxbrew/.linuxbrew/bin/brew shellenv)
-	test -r ~/.bash_profile && echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.bash_profile
-	echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.profile
-	##	Certificate creation
-	brew install mkcert nss
-	mkcert -install
-	mkcert localhost
 }
 
 function seek_confirmation() {
@@ -226,14 +219,26 @@ function test_ssh_key() {
 }
 
 function install_python() {
-	##	Installs both Python 2.7 and 3.9, and sets up auto env with default packages
+
+	##	Downloads and installs Pyenv [https://github.com/pyenv/pyenv] which allows us to install
+	##	multiple versions of Python simultaniously. We will be installing Python versions 2.7,
+	##	3.6, 3.7, 3.8, 3.9, and 3.10, and we will be registering 2.7 and 3.8 as the global system
+	##	Python versions. Includes some convenient Pyenv Plugins:
+	##	Pyenv-Pip-Migrate			<---Migrate Pip environtments between Python versions
+	##	Pyenv-Ccache				<---Speeds up Pip using a package cache
+	##	Pyenv-Default-Packages		<---Use a file to install frequently used packages
+	##	Pyenv-Virtualenv			<---Manage virtualenvs and conda environments for Python
+	##	Pyenv-Autoenv				<---Plugin for auto loading virtualenvs
+
 	curl -L https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv-installer | bash
-	git clone git://github.com/yyuu/pyenv-pip-migrate.git ~/.pyenv/plugins/pyenv-pip-migrate
+	git clone https://github.com/yyuu/pyenv-pip-migrate.git ~/.pyenv/plugins/pyenv-pip-migrate
 	git clone https://github.com/yyuu/pyenv-ccache.git ~/.pyenv/plugins/pyenv-ccache
 	git clone https://github.com/jawshooah/pyenv-default-packages.git ~/.pyenv/plugins/pyenv-default-packages
+	git clone https://github.com/pyenv/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv
+	git clone https://github.com/andersoncardoso/pyenv-autoenv.git ~/.pyenv/plugins/pyenv-autoenv
 
-	if [ -f ${DOTFILES_UTILS}/python/default_packages.txt ]; then
-		cp ${DOTFILES_UTILS}/python/default_packages.txt ~/.pyenv/default-packages
+	if [ -f ${DOTFILES_CONFIG}/.pyenv/default_packages ]; then
+		cp ${DOTFILES_CONFIG}/.pyenv/default_packages ~/.pyenv/default-packages
 	fi
 
 	if ! grep -qc 'pyenv init' ~/.bashrc; then
@@ -246,7 +251,7 @@ function install_python() {
 		echo 'eval "$(pyenv init -)"' >>~/.bashrc
 		echo 'eval "$(pyenv virtualenv-init -)"' >>~/.bashrc
 	fi
-	##	Run the above locally to use in this shell
+
 	export PYENV_ROOT="$HOME/.pyenv"
 	export PATH="$PYENV_ROOT/bin:$PATH"
 	eval "$(pyenv init --path)"
@@ -254,17 +259,25 @@ function install_python() {
 
 	c_info "Installing Python versions..."
 	pyenv install 2.7.18
+	pyenv install 3.6.8
+	pyenv install 3.7.2
+	pyenv install 3.8.1
 	pyenv install 3.9.6
-	##	'python' and 'python3' target 3.9.6 while 'python2' targets 2.7.18
-	pyenv global 3.9.6 2.7.18
+	pyenv install 3.10.0
+	##	'python' and 'python3' target 3.8.1 while 'python2' targets 2.7.18
+	pyenv global 3.8.1 2.7.18
 	##	Now update 'pip' in both versions ...
 	c_info "Upgrading Pip..."
-	python2 -m pip install --upgrade pip
-	python3 -m pip install --upgrade pip
+	python2 -m pip install --upgrade pip setuptools wheel
+	python3 -m pip install --upgrade pip setuptools wheel
 }
 
 function install_node() {
-	##	Installs NVM to allow for multiple NodeJS versions to be installed
+
+	##	Starts off by installing NVM [https://github.com/nvm-sh/nvm] which allows for multiple NodeJS
+	##	versions to be installed. It also looks for a list of default packages to be installed with
+	##	every Node version, and modifies the ~/.bashrc file to load NVM and Bash_Completion.
+
 	echo >>~/.bashrc
 	echo "# Set up NVM" >>~/.bashrc
 	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash

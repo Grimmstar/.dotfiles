@@ -183,6 +183,14 @@ eval "$(asdf exec direnv hook bash)"
 # A shortcut for asdf managed direnv.
 direnv() { asdf exec direnv "$@"; }
 
+show_virtual_env() {
+  if [[ -n "$VIRTUAL_ENV" && -n "$DIRENV_DIR" ]]; then
+    echo "($(basename $VIRTUAL_ENV))"
+  fi
+}
+export -f show_virtual_env
+PS1='$(show_virtual_env)'$PS1
+
 # Load our prompt
 [ -f "${HOME}/.bash_prompt" ] && source "${HOME}/.bash_prompt"
 [ -f "${HOME}/.bash_prompt.local" ] && source "${HOME}/.bash_prompt.local"

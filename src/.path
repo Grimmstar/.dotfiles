@@ -50,7 +50,6 @@ if [ -d "$HOME/local" ] ; then
     PATH="$HOME/local/bin:$PATH"
 fi
 
-export PYENV_ROOT="$HOME/.pyenv"
 export NVM_DIR="$HOME/.nvm"
 export JAVA_HOME="$HOME/java"
 # Prepend new items to path (if directory exists)
@@ -79,6 +78,3 @@ PATH=$(echo -n $PATH | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":
 # Wrap up
 
 export PATH
-
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"

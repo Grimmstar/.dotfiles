@@ -1,0 +1,62 @@
+#
+# Python
+#
+export PYENV_ROOT=${PYENV_ROOT:-$HOME/.pyenv}
+
+# Usage:
+#   Add to .envrc file:
+#     use python 3.7.5
+use_python() {
+    # Install pyenv for management of Python versions
+    if ! has pyenv; then
+        echo "Installing pyenv"
+        curl -L https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv-installer | bash
+    fi
+
+    # Install the required version of Python if not already installed
+    if [[ ! -d $PYENV_ROOT/versions/$1 ]]; then
+        echo "Python $1 is not installed; attempting to install"
+            pyenv install -v $1
+    fi
+
+    # Load the required version of Python onto the path
+    PYTHON_ROOT=$PYENV_ROOT/versions/$1
+    load_prefix "$PYTHON_ROOT"
+
+    if [[ -x "$PYTHON_ROOT/bin/python" ]]; then
+        # Tell direnv to create/load a virtualenv in the current directory
+        layout python "$PYTHON_ROOT/bin/python"
+        # Install pip dependencies
+        pip3 install virtualenv
+    else
+        echo "Error: $PYTHON_ROOT/bin/python can't be executed."
+        exit
+    fi
+}
+
+# Alternatively, look for a .python-version file, and use that as the Python version instead
+python_version="$(find_up .python-version || true)"
+if [[ -f "${python_version}" ]]; then
+	echo "python-version=${python_version}"
+    watch_file "${python_version}"
+    use_python "$(cat ${python_version})"
+fi
+
+
+#
+# NodeJS
+#
+export NODE_VERSIONS=${NODE_VERSIONS:-$HOME/.node}
+
+# Usage:
+#   Add to .envrc file:
+#     use node 12.16.3
+use_node() {
+    # Install the required version of NodeJS if not already installed
+    if [[ ! -d $NODE_VERSIONS/$1 ]]; then
+        mkdir -p $NODE_VERSIONS/$1
+        curl -fsSL http://nodejs.org/dist/v$1/node-v$1-darwin-x64.tar.gz | tar xvz --strip 1 -C $NODE_VERSIONS/$1 2>/dev/null
+    fi
+
+    load_prefix $NODE_VERSIONS/$1
+}
