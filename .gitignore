@@ -31,3 +31,4 @@ yarn.lock
 test_v2.sh
 test.sh
 linux.sh
+.config/gh/hosts.yml

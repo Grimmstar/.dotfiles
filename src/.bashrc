@@ -195,3 +195,4 @@ PS1='$(show_virtual_env)'$PS1
 [ -f "${HOME}/.bash_prompt" ] && source "${HOME}/.bash_prompt"
 [ -f "${HOME}/.bash_prompt.local" ] && source "${HOME}/.bash_prompt.local"
 
+eval "$(pyenv init -)"

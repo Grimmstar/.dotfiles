@@ -68,6 +68,9 @@ function add_ppas() {
 	##	PostGreSQL
 	curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
 	sudo sh -c 'echo "deb [arch=amd64] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+	##	pgAdmin
+	curl https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo apt-key add
+	sudo sh -c 'echo "deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/$(lsb_release -cs) pgadmin4 main" > /etc/apt/sources.list.d/pgadmin4.list && apt update'
 	##	Docker
 	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 	sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
@@ -287,8 +290,8 @@ function install_node() {
 	[[ -r $NVM_DIR/bash_completion ]] && \. $NVM_DIR/bash_completion # This loads nvm bash_completion
 
 	##	Check for a default packages list to install with every project
-	if [ -f ${DOTFILES_UTILS}/nvm/default_packages.txt ]; then
-		cp ${DOTFILES_UTILS}/nvm/default_packages.txt ~/.nvm/default-packages
+	if [ -f ${DOTFILES_CONFIG}/.nvm/default_packages ]; then
+		cp ${DOTFILES_CONFIG}/.nvm/default_packages ~/.nvm/default-packages
 	fi
 
 	nvm install --lts
@@ -297,17 +300,22 @@ function install_node() {
 }
 
 function install_postgres() {
-	##	Installs PostGreSQL, creates a user, and sets up backups
+	##	Installs PostGreSQL [https://www.postgresql.org/], creates a user, and sets up backups
 	sudo apt-get install -y postgresql
 	cd /home
 	sudo -u postgres initdb -E UTF8 --no-locale -D '/var/lib/postgres/data'
 	sudo systemctl start postgresql.service
 	cd /home
 	sudo -u postgres createuser --interactive
-	mkdir -p ${HOME}/.backups
+	if [ ! -d ${HOME}/.backups ]; then
+		mkdir -p ${HOME}/.backups
+	fi
 	pip install --user pgcli
-	test -L ${HOME}/.config/pgcli || rm -rf ${HOME}/.config/pgcli
-	ln -vsfn ${HOME}/.backups/pgcli ${HOME}/.config/pgcli
+	#test -L ${HOME}/.config/pgcli || rm -rf ${HOME}/.config/pgcli
+	#ln -vsfn ${HOME}/.backups/pgcli ${HOME}/.config/pgcli
+
+	sudo apt install -y pgadmin4-web
+
 }
 
 function install_gcloud() {
