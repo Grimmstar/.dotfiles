@@ -2,6 +2,9 @@
 
 ![Cy Banner](assets/Cyriina_Banner.png?raw=true "Cy Banner")
 
+<br>
+<br>
+
 # Cyriina's .dotfiles
 
 I break things. **A lot.** Between local web developement, virtual machines, and my habit of acting first, thinking later, I got *really* tired of setting up new OS installs. So I decided to make it easier on myself with this repository.
@@ -15,8 +18,7 @@ This is a very, very, very much work-in-progress thing. I've Frankenstein'd a bu
 
 </div>
 
-<br>
-<br>
+![Divider](assets/divider.png?raw=true "Divider")
 
 ## ☠️ Contents
 <div style="padding: 15px; border: 2px solid transparent; margin-bottom: 20px; border-radius: 6px; color: #8319b8; background-color: #e3c6f1; border-color: #8319b8; width: 40%;">
@@ -36,7 +38,7 @@ This is a very, very, very much work-in-progress thing. I've Frankenstein'd a bu
 
 I use Ubuntu | WSL2 running on Windows 10. Some of these scripts and options may not work out of the box for you. Sorry.
 
-_____
+![Divider](assets/divider.png?raw=true "Divider")
 
 <details>
 <summary>If you need to install WSL2 (or upgrade from WSL1), start here.</summary>
@@ -108,8 +110,8 @@ With VSCode's remote server feature, it has native support for WSL. You can run 
 At this point, you should have WSL2 working and an Ubunto distro installed. If your Ubuntu user is set up and your terminal is ready to go, follow the rest of the guide below.
 </details>
 
-_____
-
+![Divider](assets/divider.png?raw=true "Divider")
+	
 ### 🦴 Ubuntu Scripts
 
 Items installed in the following scripts include:
@@ -121,8 +123,11 @@ Items installed in the following scripts include:
 [`Git`](https://git-scm.com/) ✰ [`Github Cli`](https://cli.github.com/) ✰ [`Python 2 & 3`](https://www.python.org/downloads/) ✰ [`SSH`](https://www.openssh.com/) ✰ [`NVM`](https://github.com/nvm-sh/nvm) ✰ [`NodeJS`](https://nodejs.org/en/) ✰ [`Yarn`](https://yarnpkg.com/) ✰ [`PostgreSQL`](https://www.postgresql.org/) ✰ [`Docker`](https://www.docker.com/) ✰ [`Heroku`](https://www.heroku.com) ✰ [`AWS Cli`](https://aws.amazon.com/cli/) ✰ [`NGINX`](https://www.nginx.com/) ✰ [`Powerline Fonts`](https://github.com/powerline/fonts) ✰ [`Figlet`](http://www.figlet.org/) ✰ [`LOLcat`](https://github.com/busyloop/lolcat)
 
 </div>
-
+	
 _____
+	
+<br>
+<br>
 
 ## 🤖 Auto Install
 ![lolcat](assets/lolcat.png?raw=true "lolcat")
@@ -141,8 +146,8 @@ _____
     ```
 </details>
 
-_____
-
+![Divider](assets/divider.png?raw=true "Divider")
+	
 ## 🗡️ Manual Installation
 
 <details>
@@ -151,8 +156,8 @@ _____
 - Open `fresh-install.sh` and copy/paste the commands you wish to use from top to bottom. I mean, that's the simplest way I can put it.
 </details>
 
-_____
-
+![Divider](assets/divider.png?raw=true "Divider")
+	
 #### 🧚 Xfce4 and xRDP
 
 <details>
@@ -190,8 +195,8 @@ At this point, you should be able to open an RDP session from Windows 10.
 
 </details>
 
-_____
-
+![Divider](assets/divider.png?raw=true "Divider")
+	
 ## 🔮 Extras
 
 ##### Terminal card
@@ -207,11 +212,14 @@ _____
 
 **`~/.dotfiles/extras/MOTD`**
 
-![Preview](extras/MOTD/assets/cy_motd.png?raw=true "Preview")
+![Preview](assets/cy_motd.png?raw=true "Preview")
 </div>
 
 _____
-
+	
+<br>
+<br>
+	
 ## 🕵️ Fonts
 
 <details>
@@ -228,15 +236,19 @@ _____
 
 </details>
 
-_____
-
+![Divider](assets/divider.png?raw=true "Divider")
+	
 ## 🕸️ Helpful Links
 
 See [Credits](credits.md "Credits")
 <br>
 
-_____
+![Divider](assets/divider.png?raw=true "Divider")
 
+## More Preview Images
+
+![Bashtop](assets/bashtop_grimmstar_theme.png?raw=true "Bashtop")
+	
 ## ✏️ To-Do
 - [ ] Clean up dotfiles (`.bashrc`, `.profile`, `.bash_profile`, etc) to remove uneeded/unused/duplicate things
 - [ ] Better way to auto-start services
