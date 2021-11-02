@@ -29,11 +29,11 @@ source $(dirname $0)/utils/logging_utils.sh
 
 #	Variables
 
-DOTFILES="~/.dotfiles"
+DOTFILES="$HOME/.dotfiles"
 DOTFILES_SOURCE="${DOTFILES}/src"
 DOTFILES_UTILS="${DOTFILES}/utils"
-DOTFILES_LISTS="${DOTFILES_UTILS}/lists/"
-DOTFILES_CONFIG="${DOTFILES}/.config/"
+DOTFILES_LISTS="${DOTFILES_UTILS}/lists"
+DOTFILES_CONFIG="${DOTFILES}/.config"
 FONTS_DIR="${DOTFILES}/bin/.local/fonts"
 BACKUP_DIR="$HOME/.dotfiles-backup/$(date "+%Y%m%d%H%M.%S")"
 
@@ -149,7 +149,8 @@ function install_ssh() {
 	sudo apt remove -y openssh-server
 	sudo apt install -y openssh-server
 	sudo systemctl enable ssh
-	sudo systemctl ssh start
+	sudo service ssh start
+	eval "$(ssh-agent -s)"
 	##	Modify firewall rules to allow SSH through
 	sudo ufw allow ssh
 	sudo ufw enable
@@ -185,7 +186,9 @@ function create_ssh_key() {
 	fi
 	c_info "Copying public key to clipboard..."
 	if [ -f "${HOME}/.ssh/id_rsa.pub" ]; then
-		pbcopy <"${HOME}/.ssh/id_rsa.pub"
+		eval "$(ssh-agent -s)"
+		ssh-add ~/.ssh/id_rsa
+		cat ~/.ssh/id_rsa.pub
 	fi
 }
 

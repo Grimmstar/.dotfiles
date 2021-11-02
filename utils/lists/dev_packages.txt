@@ -2,7 +2,13 @@ build-essential
 ccache
 direnv
 gettext
+git
+git-all
+git-core
+git-secrets
 htop
+iproute2
+iputils-ping
 libapache2-mod-wsgi
 libbz2-dev
 libcurl4-openssl-dev
@@ -27,11 +33,9 @@ libxml2-dev
 libxmlsec1-dev
 llvm
 lzma
+make
 mcrypt
 nano
-openssh-client
-openssh-server
-openssl
 sqlite3
 tcl-dev
 tk-dev
