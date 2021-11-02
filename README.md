@@ -135,14 +135,14 @@ _____
 <details>
 <summary>If you like things easy, but possibly broken, start here</summary>
 
-1. Clone the repository into the `sources` directory:
+1. Clone the repository into the `home` directory:
     ```shell
-    cd ~ && git clone https://github.com/Grimmstar/.dotfiles ~/sources/dotfiles
+    cd ~ && git clone https://github.com/Grimmstar/.dotfiles ~/.dotfiles
     ```
 
 2. Run the `fresh-install.sh` script:
     ```shell
-    ~/sources/dotfiles/fresh-install.sh
+    ~/.dotfiles/fresh-install.sh
     ```
 </details>
 
