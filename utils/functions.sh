@@ -37,7 +37,7 @@ DOTFILES_CONFIG="${DOTFILES}/.config"
 FONTS_DIR="${DOTFILES}/bin/.local/fonts"
 BACKUP_DIR="$HOME/.dotfiles-backup/$(date "+%Y%m%d%H%M.%S")"
 
-LOGFILE='fresh-install-log'
+LOGFILE='fresh-install-log.txt'
 
 dest="${HOME}/${1}"
 old=".OLD"
@@ -69,8 +69,8 @@ function add_ppas() {
 	curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
 	sudo sh -c 'echo "deb [arch=amd64] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
 	##	pgAdmin
-	curl https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo apt-key add
-	sudo sh -c 'echo "deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/$(lsb_release -cs) pgadmin4 main" > /etc/apt/sources.list.d/pgadmin4.list && apt update'
+	## curl https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo apt-key add
+	## sudo sh -c 'echo "deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/$(lsb_release -cs) pgadmin4 main" > /etc/apt/sources.list.d/pgadmin4.list && apt update'
 	##	Docker
 	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 	sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
@@ -82,7 +82,7 @@ function add_ppas() {
 	##	Neofetch
 	sudo add-apt-repository ppa:dawidd0811/neofetch -y
 	##	Ubuntu Universe
-	sudo add-apt-repository universe -y
+	## sudo add-apt-repository universe -y
 	##	Heroku
 	echo "deb https://cli-assets.heroku.com/apt ./" > /etc/apt/sources.list.d/heroku.list
 	curl https://cli-assets.heroku.com/apt/release.key | sudo apt-key add -
